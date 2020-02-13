@@ -32,8 +32,6 @@ class LogoutTest extends TestCase
 
         $this->assertFalse(auth()->check());
 
-        //TODO: notesteet forgot un reset password
-
     }
 
 }

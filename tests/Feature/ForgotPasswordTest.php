@@ -3,12 +3,14 @@
 namespace Tests\Feature;
 
 use App\User;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Mail\Mailer;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class ForgotPasswordTest extends TestCase
@@ -30,24 +32,33 @@ class ForgotPasswordTest extends TestCase
     {
         $this->followingRedirects()
             ->from("/password/reset")
-            ->post('/password/reset', [])
+            ->post('/password/email', [])
             ->assertOk()
             ->assertSeeText("The email field is required.");
+    }
 
+    public function testEmptyLogin(): void
+    {
+        $this->from("/password/reset")
+            ->post('/password/email', [])
+            ->assertStatus(302)
+            ->assertSessionHasErrors([
+                "email" => "The email field is required."
+            ]);
     }
 
     public function testInvalidEmailInput(): void
     {
         $this->followingRedirects()
             ->from("/password/reset")
-            ->post('/password/reset', [
+            ->post('/password/email', [
                 "email" => "test"
             ])
             ->assertStatus(200)
             ->assertSeeText("The email must be a valid email address.");
 
         $this->from("/password/reset")
-            ->post("/password/reset", [
+            ->post("/password/email", [
                 "email" => "invalid"
             ])
             ->assertStatus(302)
@@ -64,7 +75,7 @@ class ForgotPasswordTest extends TestCase
                 "email" => "roberts@test.com"
             ])
             ->assertStatus(200)
-            ->assertSeeText("We can&#039;t find a user with that e-mail address");
+            ->assertSeeText('We can&#039;t find a user with that e-mail address.');
     }
 
     public function testCreatePasswordResetLink(): void
@@ -86,23 +97,27 @@ class ForgotPasswordTest extends TestCase
 
     }
 
-    public function testEmailSent()
+    public function testForgotPassword(): void
     {
+        Notification::fake();
+
         $user = factory(User::class)->create([
             "email" => "rob@rob.lv"
         ]);
 
         $this->followingRedirects()
-            ->from("/password/reset")
-            ->post('/password/email', [
-                "email" => "rob@rob.lv"
+            ->from("password/reset")
+            ->post("password/email", [
+                "email" => $user->email
             ])
-            ->assertStatus(200);
+            ->assertOk()
+            ->assertSeeText("We have e-mailed your password reset link!");
 
-        Mail::fake();
+        $this->assertDatabaseHas("password_resets", [
+            "email" => $user->email
+        ]);
 
-//         Assert a message was sent to the given users...
-        Mail::assertSent(RecoverPasswordNotification::class);
+        Notification::assertSentTo([$user],ResetPassword::class);
 
     }
 
