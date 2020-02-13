@@ -37,8 +37,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function create(array $array)
-    {
 
-    }
 }
