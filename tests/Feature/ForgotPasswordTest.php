@@ -3,8 +3,11 @@
 namespace Tests\Feature;
 
 use App\User;
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Mail\Mailer;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
@@ -66,20 +69,26 @@ class ForgotPasswordTest extends TestCase
 
     public function testCreatePasswordResetLink(): void
     {
-        $user = factory(User::class)->make([
+        $user = factory(User::class)->create([
             "email" => "rob@rob.lv"
         ]);
 
+        $this->followingRedirects()
+            ->from("/password/reset")
+            ->post('/password/email', [
+                "email" => "rob@rob.lv"
+            ])
+            ->assertStatus(200);
+
         $this->assertDatabaseHas("password_resets", [
-            "email" => $user->email,
-            "token" => 
+            "email" => $user->email
         ]);
 
     }
 
     public function testEmailSent()
     {
-        $user = factory(User::class)->make([
+        $user = factory(User::class)->create([
             "email" => "rob@rob.lv"
         ]);
 
@@ -92,18 +101,8 @@ class ForgotPasswordTest extends TestCase
 
         Mail::fake();
 
-        Mail::send("recovery message");
-
-        // Perform order shipping...
-
-//        Mail::assertSent("recovery message", function ($mail) {
-//            return;
-//        });
-
 //         Assert a message was sent to the given users...
-        Mail::assertSent("recovery message", function ($mail) use ($user) {
-            return $mail->hasTo($user->email);
-        });
+        Mail::assertSent(RecoverPasswordNotification::class);
 
     }
 
