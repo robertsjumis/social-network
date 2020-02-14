@@ -11,6 +11,7 @@ use Illuminate\Mail\Mailer;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
+use Mockery\Mock;
 use Tests\TestCase;
 
 class ForgotPasswordTest extends TestCase
@@ -118,7 +119,6 @@ class ForgotPasswordTest extends TestCase
         ]);
 
         Notification::assertSentTo([$user],ResetPassword::class);
-
     }
 
 
