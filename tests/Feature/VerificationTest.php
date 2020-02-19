@@ -32,7 +32,7 @@ class VerificationTest extends TestCase
             ->from("/register")
             ->post('/register', [
                 "name" => $user->name,
-                "surname" => $user->surname,
+                "last_name" => $user->last_name,
                 "email" => $user->email,
                 "password" => "12345678",
                 "password_confirmation" => "12345678"

@@ -38,7 +38,7 @@ class RegisterTest extends TestCase
             ->post('/register', [])
             ->assertOk()
             ->assertSeeText("The email field is required.")
-            ->assertSeeText("The surname field is required.")
+            ->assertSeeText("The last name field is required.")
             ->assertSeeText("The password field is required.")
             ->assertSeeText("The name field is required.");
     }
@@ -82,7 +82,7 @@ class RegisterTest extends TestCase
             ->from("/register")
             ->post('/register', [
                 "name" => "rob",
-                "surname" => "rob",
+                "lastName" => "rob",
                 "email" => "test@test.com",
                 "password" => "12345678",
                 "password_confirmation" => "1234567"
@@ -99,7 +99,7 @@ class RegisterTest extends TestCase
             ->from("/register")
             ->post('/register', [
                 "name" => "rob",
-                "surname" => "rob",
+                "lastName" => "rob",
                 "email" => $user->email,
                 "password" => "12345678",
                 "password_confirmation" => "12345678"
@@ -116,7 +116,7 @@ class RegisterTest extends TestCase
             ->from("/register")
             ->post('/register', [
                 "name" => $user->name,
-                "surname" => $user->surname,
+                "last_name" => $user->last_name,
                 "email" => $user->email,
                 "password" => "12345678",
                 "password_confirmation" => "12345678"
