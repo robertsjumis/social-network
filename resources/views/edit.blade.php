@@ -1,1 +1,2 @@
-edit profile page
+@extends('layouts.app')
+

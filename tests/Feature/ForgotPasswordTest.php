@@ -81,14 +81,12 @@ class ForgotPasswordTest extends TestCase
 
     public function testCreatePasswordResetLink(): void
     {
-        $user = factory(User::class)->create([
-            "email" => "rob@rob.lv"
-        ]);
+        $user = factory(User::class)->create();
 
         $this->followingRedirects()
             ->from("/password/reset")
             ->post('/password/email', [
-                "email" => "rob@rob.lv"
+                "email" => $user->email
             ])
             ->assertStatus(200);
 
@@ -102,9 +100,7 @@ class ForgotPasswordTest extends TestCase
     {
         Notification::fake();
 
-        $user = factory(User::class)->create([
-            "email" => "rob@rob.lv"
-        ]);
+        $user = factory(User::class)->create();
 
         $this->followingRedirects()
             ->from("password/reset")
