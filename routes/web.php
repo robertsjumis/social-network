@@ -19,4 +19,6 @@ Auth::routes(["verify" => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get("/{name}-{surname}-{id}/edit", "UserController@edit('id')");
+Route::get("/{user}", "UserController@show");
+
+//Route::resource("/{user}", "UserController");

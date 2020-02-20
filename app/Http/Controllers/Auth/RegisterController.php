@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = "/home"; //TODO: mus create a middleware which checks whether the user has completed his profile
+    protected $redirectTo = "/home"; //TODO: must create a middleware which checks whether the user has completed his profile
 
     /**
      * Create a new controller instance.
