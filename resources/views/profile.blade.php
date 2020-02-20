@@ -5,6 +5,7 @@
 <h2>{{ $user->last_name }}</h2>
 <h2>{{ $user->created_at }}</h2>
 <h2>{{ $user->address}}</h2>
+<img src="{{ asset($user->image_location) }}" alt="">
 @endsection
 
 {{ $user }}
