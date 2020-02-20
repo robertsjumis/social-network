@@ -22,7 +22,7 @@ class VerificationTest extends TestCase
      *
      * @return void
      */
-    public function testSendEmail(): void //TODO: finish this test w/o the comment
+    public function testSendEmail(): void //TODO: finish this test w/o the error in redirect
     {
         Notification::fake();
 
