@@ -34,6 +34,7 @@ class VerificationTest extends TestCase
                 "name" => $user->name,
                 "last_name" => $user->last_name,
                 "email" => $user->email,
+                "address" => $user->address,
                 "password" => "12345678",
                 "password_confirmation" => "12345678"
             ])
