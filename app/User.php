@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -36,8 +37,12 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-   
 
-    
+    public function image_location() // TODO: šo jarefactoro
+    {
+
+        return $this->image_location ? asset($this->image_location) : asset("/default_profile_pic.jpg");
+    }
+
 
 }
