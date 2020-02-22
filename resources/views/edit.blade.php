@@ -15,11 +15,12 @@
                             @csrf
                             @method("put")
                             <div class="form-group row">
-                                <img style="max-width:100px; max-height:100px" src="{{ $user->image_location() }}"
-                                     alt="User profile image">
+
                                 <label for="image"
                                        class="col-md-4 col-form-label text-md-right">{{ __('Profile picture') }}</label>
                                 <div class="col-md-6">
+                                    <img style="max-width:100px; max-height:100px" src="{{ $user->image_location() }}"
+                                         alt="User profile image">
                                     Select image to upload:
                                     <input type="file" name="image" id="fileToUpload">
                                     <input type="submit" value="Upload Image">
@@ -59,7 +60,7 @@
                                 <label for="name"
                                        class="col-md-4 col-form-label text-md-right">{{ __(str_replace("_", " ", ucfirst($fillable))) }}</label>
                                 <div class="col-md-6">
-                                    <input id="name" type="datetime"
+                                    <input id="name" type="date"
                                            class="form-control @error($fillable) is-invalid @enderror"
                                            name="{{ $fillable }}"
                                            value="{{ $user->$fillable }}" required
