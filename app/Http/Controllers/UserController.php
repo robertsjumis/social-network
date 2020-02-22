@@ -23,7 +23,7 @@ class UserController extends Controller
 
     }
 
-    public function update(User $user) // post request in edit page
+    public function updateImage(User $user) // post request in edit page
     {
         // TODO: japieliek validacija bildei, image un dimensijas. to dara, izveidojot request klasi pgp artisanmake:request, un tajaa ievietojot validatoru, lidzigi kaa paroleem
 
@@ -33,7 +33,20 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect("/" . $user->id);
+        return redirect("/" . $user->id . "/edit");
+    }
+
+    public function update(User $user)
+    {
+        $userFillable = key(request()->only($user->getFillable()));
+
+        $newValue = current(request()->only($user->getFillable()));
+
+        $user->$userFillable = $newValue;
+
+        $user->save();
+
+        return redirect("/" . $user->id . "/edit");
     }
 
     public function destroy() // deletes the user
