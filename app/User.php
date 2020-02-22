@@ -38,10 +38,29 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function image_location() // TODO: šo jarefactoro
+    public function image_location(): string
     {
-
         return $this->image_location ? asset($this->image_location) : asset("/default_profile_pic.jpg");
+    }
+
+    public function phone(): string
+    {
+        return $this->phone ?? "Not yet defined";
+    }
+
+    public function birthday(): string
+    {
+        return $this->birthday ?? "Not yet defined";
+    }
+
+    public function bio(): string
+    {
+        return $this->bio ?? "Not yet defined";
+    }
+
+    public function address(): string
+    {
+        return $this->address ?? "Not yet defined";
     }
 
 
