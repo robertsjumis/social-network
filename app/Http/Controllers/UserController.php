@@ -33,7 +33,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect("/" . $user->id . "/edit");
+        return redirect(route("edit.profile", ["user" => $user]));
     }
 
     public function update(User $user)
@@ -46,7 +46,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect("/" . $user->id . "/edit");
+        return redirect(route("edit.profile", ["user" => $user]));
     }
 
     public function destroy() // deletes the user

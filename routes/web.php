@@ -34,7 +34,7 @@ Route::get("test-url", function () {
 Route::get("/{user}", "UserController@show");
 Route::put("/{user}", "UserController@updateImage")->name("updateImage.profile");
 Route::patch("/{user}", "UserController@update")->name("update.profile");
-Route::get("/{user}/edit", "UserController@edit");
+Route::get("/{user}/edit", "UserController@edit")->name("edit.profile");
 
 
 
