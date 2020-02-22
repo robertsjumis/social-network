@@ -10,7 +10,7 @@
 @endsection
 
 {{ $user }}
-{{ asset("/") }}
+
 
 
 
