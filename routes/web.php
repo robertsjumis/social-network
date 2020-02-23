@@ -11,13 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware("auth")->get('/', function () {
+    return view('main');
 });
 
 Auth::routes(["verify" => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware("profile.done");
+
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name("welcome");
+
 
 
 
