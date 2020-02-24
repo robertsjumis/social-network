@@ -5,15 +5,16 @@
         <div id="header">
             <div id="logo">
                 <img src="images/pic02.jpg" alt=""/>
-                <h1><a href="#">Privy</a></h1>
+                <h1><a href="/profile">Privy</a></h1>
                 <span>Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a></span>
             </div>
             <div id="menu">
                 <ul>
                     <li class="current_page_item"><a href="#" accesskey="1" title="">Main</a></li>
-                    <li><a href="#" accesskey="2" title="">Galleries</a></li>
-                    <li><a href="#" accesskey="3" title="">Friends</a></li>
-                    <li><a href="#" accesskey="4" title="">Profile</a></li>
+                    <li><a href="#" accesskey="2" title="">New Post</a></li>
+                    <li><a href="#" accesskey="3" title="">Messages</a></li>
+                    <li><a href="#" accesskey="4" title="">Galleries</a></li>
+                    <li><a href="#" accesskey="5" title="">Friends</a></li>
                     <li><a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -27,9 +28,7 @@
             </div>
         </div>
         <div id="main">
-            <div id="banner">
-                <img src="images/pic01.jpg" alt="" class="image-full"/>
-            </div>
+
             <div id="welcome">
                 <div class="title">
                     <h2>Fusce ultrices fringilla metus</h2>

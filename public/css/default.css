@@ -458,6 +458,8 @@
 
 	#menu li:hover a, #menu li.active a, #menu li.active span
 	{
+        background: #4E465E;
+        color: rgba(255,255,255,1);
 	}
 
 	#menu .current_page_item a
