@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UploadImage;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -25,20 +26,18 @@ class UserController extends Controller
 
     }
 
-    public function updateImage(User $user) // post request in edit page
+    public function updateImage(UploadImage $request, User $user) // post request in edit page
     {
-        // TODO: japieliek validacija bildei, image un dimensijas. to dara, izveidojot request klasi pgp artisanmake:request, un tajaa ievietojot validatoru, lidzigi kaa paroleem
-
-        $image_path = Storage::url(request()->file("image")->store("/public/profile_pictures"));
-
-        $user->image_location = $image_path;
+        $user->update([
+            "image_location" => request()->file("image")->store("profile_pictures", "public")
+        ]);
 
         $user->save();
 
         return redirect(route("edit.profile", ["user" => $user]));
     }
 
-    public function update(User $user)
+    public function update(User $user) //TODO: jāuztaisa Request klasi, kas validē inputus
     {
         $userFillable = key(request()->only($user->getFillable()));
 

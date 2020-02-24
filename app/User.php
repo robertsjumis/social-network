@@ -40,7 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function image_location(): string
     {
-        return $this->image_location ? asset($this->image_location) : asset("/default_profile_pic.jpg");
+        return $this->image_location ? Storage::url($this->image_location, 'public') : asset("/default_profile_pic.jpg");
     }
 
     public function phone(): string

@@ -13,7 +13,7 @@ class UploadImage extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,8 +24,16 @@ class UploadImage extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|unique:posts|max:255',
-            'body' => 'required',
+            'image' => 'image|required|dimensions:min_width=50,min_height=50,max_width:2048,max_height:2048'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'image.required' => 'An image file is required',
+            "image.image" => "An image file is required",
+            'image.dimensions'  => 'Unappropriate dimensions',
         ];
     }
 }

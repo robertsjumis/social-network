@@ -64,6 +64,16 @@
                     </div>
                 </div>
             </div>
+            <div id="welcome">
+                <div class="title">
+                    <h4>Friends</h4>
+                </div>
+            </div>
+            <div id="welcome">
+                <div class="title">
+                    <h4>Galleries</h4>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

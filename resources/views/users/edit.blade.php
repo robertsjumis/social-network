@@ -25,6 +25,16 @@
             </div>
         </div>
         <div id="main">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div id="welcome">
                 <div class="title">
                     <h2>Edit your profile</h2>
@@ -37,15 +47,19 @@
                     @csrf
                     @method("put")
                     <div class="form-group row">
-
                         <label for="image"
                                class="col-md-4 col-form-label text-md-right">{{ __('Profile picture') }}</label>
                         <div class="col-md-6">
                             <img style="max-width:100px; max-height:100px" src="{{ $user->image_location() }}"
                                  alt="User profile image">
                             Select image to upload:
-                            <input type="file" name="image" id="fileToUpload">
-                            <input type="submit" value="Upload Image">
+                            <input type="file" name="image" id="fileToUpload" class="@error('image') is-invalid @enderror">
+                            <input type="submit" name="uploadImage" value="Upload Image">
+                            @error('image')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('image') }}</strong>
+                            </span>
+                            @enderror
                         </div>
                     </div>
                 </form>
@@ -75,6 +89,11 @@
                                        autocomplete="{{ $user->$userProperty }}"
                                        autofocus>
                             </div>
+                            @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
                             <button type="submit" class="btn btn-primary">
                                 {{ __('Update') }}
                             </button>
