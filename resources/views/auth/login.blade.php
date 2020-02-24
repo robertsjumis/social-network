@@ -83,10 +83,8 @@
                 </form>
 
 
-                <div id="copyright">
-                    <span>&copy; Roberts Jumis. All rights reserved. </span>
-                    <span>Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</span>
-                </div>
+
             </div>
         </div>
+    </div>
 @endsection

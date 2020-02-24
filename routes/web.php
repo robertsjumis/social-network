@@ -11,9 +11,7 @@
 |
 */
 
-Route::middleware("auth")->get('/', function () {
-    return view('main');
-});
+Route::middleware("auth")->get('/', 'HomeController@index');
 
 Auth::routes(["verify" => true]);
 
@@ -32,9 +30,6 @@ Route::get("test-url", function () {
     // šis darbojas ->  return \Illuminate\Support\Facades\Storage::get("public/empty_profile_img.jpeg"); // download metode nokačā failu, url atgriež path to file, delete izdzēš failu
     // īs kkāds kosmosa variants return $user->getPicture();
 });
-
-
-
 
 Route::get("/{user}", "UserController@show");
 Route::put("/{user}", "UserController@updateImage")->name("updateImage.profile");

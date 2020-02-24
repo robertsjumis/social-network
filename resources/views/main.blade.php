@@ -1,26 +1,23 @@
 @extends("layouts.layout")
-
 @section("content")
     <div id="page" class="container">
         <div id="header">
             <div id="logo">
-                <img src="images/pic02.jpg" alt=""/>
-                <h1><a href="/profile">Privy</a></h1>
-                <span>Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a></span>
+                <img style="max-width:100px; max-height:100px" src="{{$user->image_location()}}" alt=""/>
+                <h1><a href="/{{$user->id}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
+
             </div>
             <div id="menu">
                 <ul>
                     <li class="current_page_item"><a href="#" accesskey="1" title="">Main</a></li>
                     <li><a href="#" accesskey="2" title="">New Post</a></li>
                     <li><a href="#" accesskey="3" title="">Messages</a></li>
-                    <li><a href="#" accesskey="4" title="">Galleries</a></li>
-                    <li><a href="#" accesskey="5" title="">Friends</a></li>
+                    <li><a href="#" accesskey="4" title="">Friends</a></li>
                     <li><a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
                         </a>
-
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form></li>
@@ -28,7 +25,6 @@
             </div>
         </div>
         <div id="main">
-
             <div id="welcome">
                 <div class="title">
                     <h2>Fusce ultrices fringilla metus</h2>
@@ -81,10 +77,7 @@
                     </li>
                 </ul>
             </div>
-            <div id="copyright">
-                <span>&copy; Roberts Jumis. All rights reserved. </span>
-                <span>Design by <a href="http://templated.co" rel="nofollow">TEMPLATED</a>.</span>
-            </div>
+
         </div>
     </div>
 @endsection
