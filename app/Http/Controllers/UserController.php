@@ -10,12 +10,12 @@ class UserController extends Controller
 {
     public function edit(User $user) // shows edit page
     {
-        return view('/edit', ["user" => $user]);
+        return view('/users/edit', ["user" => $user]);
     }
 
     public function show(User $user) // shows user's profile page
     {
-        return view("/profile", ["user" => $user]); //TODO: pārtaisīt uz slug. pamācība pieejama day22/app/user.php failā
+        return view("/users/profile", ["user" => $user]); //TODO: pārtaisīt uz slug. pamācība pieejama day22/app/user.php failā
     }
 
     public function index() // show all
