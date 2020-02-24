@@ -1,10 +1,18 @@
 @extends("layouts.layout")
+
 @section("content")
     <div id="page" class="container">
         <div id="header">
             <div id="logo">
                 <img style="max-width:100px; max-height:100px" src="{{$user->image_location()}}" alt=""/>
                 <h1><a href="/{{$user->id}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
+                @if($showEditProfileButton)
+                    <form action="{{$user->id}}/edit" method="GET">
+                        <button type="submit" class="btn btn-primary">
+                            {{ __('Update profile') }}
+                        </button>
+                    </form>
+                @endif
             </div>
             <div id="menu">
                 <ul>
@@ -19,19 +27,43 @@
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
-                        </form></li>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>
         <div id="main">
-            <h1>{{ $user->name }} {{ $user->last_name }}</h1>
-
-            <h2>Address: {{ $user->address()}}</h2>
-            <h2>Phone: {{ $user->phone()}}</h2>
-            <h2>Birthday: {{ $user->birthday()}}</h2>
-            <h2>Bio: {{ $user->bio()}}</h2>
-            <img style="max-width:200px; max-height:200px" src="{{ $user->image_location() }}" alt="User profile image">
-
+            <img style="max-width:200px; max-height:200px" src="{{ $user->image_location() }}"
+                 alt="User profile image">
+            <div id="welcome">
+                <div class="title">
+                    <h2>{{ $user->name }} {{$user->last_name}}</h2>
+                    <h5>{{ $user->bio()}}</h5>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group row">
+                    <label for="name"
+                           class="col-md-4 col-form-label text-md-right">Address</label>
+                    <div class="col-md-6">
+                        {{ $user->address()}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="name"
+                           class="col-md-4 col-form-label text-md-right">Phone No.</label>
+                    <div class="col-md-6">
+                        {{ $user->phone()}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="name"
+                           class="col-md-4 col-form-label text-md-right">Birthday</label>
+                    <div class="col-md-6">
+                        {{ $user->birthday()}}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

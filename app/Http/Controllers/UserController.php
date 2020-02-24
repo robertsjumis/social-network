@@ -15,7 +15,9 @@ class UserController extends Controller
 
     public function show(User $user) // shows user's profile page
     {
-        return view("/users/profile", ["user" => $user]); //TODO: pārtaisīt uz slug. pamācība pieejama day22/app/user.php failā
+        $showEditProfileButton = auth()->user() == $user ? true : false;
+
+        return view("/users/profile", ["user" => $user, "showEditProfileButton" => $showEditProfileButton]); //TODO: pārtaisīt uz slug. pamācība pieejama day22/app/user.php failā
     }
 
     public function index() // show all
