@@ -456,11 +456,54 @@
 		color: rgba(255,255,255,0.5);
 	}
 
-	#menu li:hover a, #menu li.active a, #menu li.active span
-	{
+
+    #menu li:hover > a, #menu li.active a, #menu li.active span
+    {
         background: #4E465E;
         color: rgba(255,255,255,1);
-	}
+        transition: all 0.25s ease;
+    }
+
+    /*start*/
+
+    #menu ul li ul {
+
+        visibility: hidden;
+        opacity: 0;
+        width:40%;
+        position: absolute;
+        transition: all 0.5s ease;
+        right:0px;
+        display: none;
+    }
+
+    #menu ul li:hover > ul,
+    /*#menu ul li:focus-within > ul,*/
+    #menu ul li ul:hover,
+    #menu ul li ul:focus {
+        visibility: visible;
+        opacity: 1;
+        display: block;
+        background: #444444;
+        color: rgba(255,255,255,1);
+    }
+
+    #menu li:hover,
+    #menu li:focus-within {
+
+        cursor: pointer;
+    }
+
+    #menu li:focus-within a {
+        outline: none;
+    }
+
+    #menu ul li ul li {
+        clear: both;
+        width: 100%;
+    }
+    /*end*/
+
 
 	#menu .current_page_item a
 	{
