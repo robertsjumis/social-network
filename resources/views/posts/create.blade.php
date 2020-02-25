@@ -10,7 +10,7 @@
             <div id="menu">
                 <ul>
                     <li><a href="/" accesskey="1" title="">Main</a></li>
-                    <li class="current_page_item" ><a accesskey="2" title="">New Picsy</a>
+                    <li class="current_page_item"><a accesskey="2" title="">New Picsy</a>
                         <ul class="dropdown">
                             <li><a href="#">Gallery</a></li>
                             <li><a href="{{route("post.create")}}">Post</a></li>
@@ -35,9 +35,15 @@
                 <div class="title">
                     <h2>Create a new post</h2>
                     <span
-                        class="byline">Donec leo, vivamus fermentum nibh in augue praesent a lacus at urna congue</span>
+                        class="byline">He, who dont knows nothing, knows in fact everything</span>
                 </div>
-                
+
+                <form action="/post" method="POST">
+                    @csrf
+                    <input type="text" name="title" placeholder="title goes here" required />
+                    <textarea name="body" placeholder="Write your stuff here" required></textarea>
+                    <button type="submit" class="btn btn-primary">Post</button>
+                </form>
             </div>
 
         </div>
