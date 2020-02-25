@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -32,12 +33,23 @@ class PostController extends Controller
 
     public function index()
     {
+        $user = auth()->user();
 
+        $posts = DB::table("posts")->select("*")->orderBy("created_at", "desc")->get();
+
+        $users = DB::table("users")->get("*");
+
+        return view("main", ["users" => $users, "user" => $user, "posts" => $posts]);
     }
 
     public function show(Post $post)
     {
 
+        $user = auth()->user();
+
+        $showEditPostButton = auth()->user()->id == $post->created_by ? true : false;
+
+        return view("posts/show", ["post" => $post, "user" => $user, "showEditPostButton" => $showEditPostButton]);
     }
 
 }
