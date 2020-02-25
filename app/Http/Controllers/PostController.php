@@ -52,4 +52,34 @@ class PostController extends Controller
         return view("posts/show", ["post" => $post, "user" => $user, "showEditPostButton" => $showEditPostButton]);
     }
 
+    public function edit(Post $post)
+    {
+        $user = auth()->user();
+
+        return view('/posts/edit', ["post" => $post, "user" => $user]);
+    }
+
+    public function update(Post $post)
+    {
+        $user = auth()->user();
+
+        $post->update([
+            "title" => request()->title,
+            "body" => request()->body,
+            "updated_at" => NOW()
+        ]);
+
+        $post->save();
+
+        return redirect(route("post.show", ["post" => $post]));
+    }
+
+    public function destroy(POST $post)
+    {
+        $post->delete();
+
+        return redirect("/");
+
+    }
+
 }

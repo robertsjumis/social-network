@@ -44,7 +44,7 @@
             @foreach($posts as $post)
             <div id="featured">
                 <div class="title">
-                    <h3>{{$post->title}}</h3>
+                    <h3><a href="/post/{{$post->id}}">{{$post->title}}</a></h3>
                     <span class="byline">By
                         @foreach($users as $user)
                             @if($user->id == $post->created_by)

@@ -33,24 +33,21 @@
         <div id="main">
             <div id="welcome">
                 <div class="title">
-                    <h2>{{$post->title}}</h2>
+                    <h2>Create a new post</h2>
                     <span
                         class="byline">He, who dont knows nothing, knows in fact everything</span>
                 </div>
 
-                <h4>{{$post->body}}</h4>
-            </div>
-            @if($showEditPostButton)
-                <form action="/post/{{$post->id}}/edit" method="GET">
-                    @csrf
-                    <button type="submit" class="btn btn-secondary">Edit Post</button>
-                </form>
                 <form action="/post/{{$post->id}}" method="POST">
                     @csrf
-                    @method("delete")
-                    <button type="submit" class="btn btn-danger">Delete Post</button>
+                    @method("put")
+                    <input type="text" name="title" value="{{ $post->title }}" required/>
+                    <textarea name="body" required>{{ $post->body }}</textarea>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </form>
-            @endif
+
+            </div>
+
         </div>
     </div>
 @endsection
