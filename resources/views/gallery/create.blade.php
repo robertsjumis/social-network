@@ -9,8 +9,8 @@
             </div>
             <div id="menu">
                 <ul>
-                    <li class="current_page_item"><a href="/" accesskey="1" title="">Main</a></li>
-                    <li><a accesskey="2" title="">New Picsy</a>
+                    <li><a href="/" accesskey="1" title="">Main</a></li>
+                    <li class="current_page_item"><a accesskey="2" title="">New Picsy</a>
                         <ul class="dropdown">
                             <li><a href="{{route("gallery.create")}}">Gallery</a></li>
                             <li><a href="{{route("post.create")}}">Post</a></li>
@@ -30,33 +30,24 @@
                 </ul>
             </div>
         </div>
-
         <div id="main">
-
             <div id="welcome">
                 <div class="title">
-                    <h2>New posts n stuff</h2>
+                    <h2>Create a new gallery</h2>
                     <span
-                        class="byline">Cool stuff, huh?</span>
+                        class="byline">He, who fights the change, is fighting the future</span>
                 </div>
 
-            </div>
-            @foreach($posts as $post)
-            <div id="featured">
-                <div class="title">
-                    <h3><a href="/post/{{$post->id}}">{{$post->title}}</a></h3>
-                    <span class="byline">By
-                        @foreach($users as $user)
-                            @if($user->id == $post->created_by)
-                                <a href="/{{$user->id}}">{{$user->name}} {{$user->last_name}}</a>
-                            @endif
-                        @endforeach
-                        @ {{$post->created_at}}</span>
-                    <h5>{{$post->body}}</h5>
-                </div>
+                <form action="/gallery" method="POST">
+                    @csrf
+                    Gallery name:
+                    <input type="text" name="title" placeholder="name goes here" required />
 
+                    <button type="submit" class="btn btn-primary">Next</button>
+                </form>
             </div>
-            @endforeach
+
         </div>
     </div>
 @endsection
+

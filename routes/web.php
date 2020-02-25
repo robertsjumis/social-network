@@ -1,6 +1,6 @@
 <?php
 
-Route::middleware("auth")->get('/', 'PostController@index');
+
 
 Auth::routes(["verify" => true]);
 
@@ -16,12 +16,22 @@ Route::get("test-url", function () {
     // īs kkāds kosmosa variants return $user->getPicture();
 });
 
+//posts
+Route::middleware("auth")->get('/', 'PostController@index');
 Route::get("/post/create", "PostController@create")->name("post.create");
 Route::post("/post", "PostController@store")->name("post.store");
 Route::get("/post/{post}", "PostController@show")->name("post.show");
 Route::get("/post/{post}/edit", "PostController@edit")->name("post.edit");
 Route::put("/post/{post}", "PostController@update")->name("post.update");
 Route::delete("/post/{post}", "PostController@destroy")->name("post.delete");
+
+//galleries
+Route::get("/gallery/create", "GalleryController@create")->name("gallery.create");
+Route::post("/gallery", "GalleryController@store")->name("gallery.store");
+Route::get("/gallery/{gallery}/2", "GalleryController@edit")->name("gallery.edit");
+
+
+
 
 
 Route::get("/{user}", "UserController@show");
