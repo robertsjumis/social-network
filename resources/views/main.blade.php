@@ -9,16 +9,15 @@
             </div>
             <div id="menu">
                 <ul>
-                    <li><a class="current_page_item" href="/" accesskey="1" title="">Main</a></li>
+                    <li class="current_page_item"><a  href="/" accesskey="1" title="">Main</a></li>
                     <li><a accesskey="2" title="">New Picsy</a>
                         <ul class="dropdown">
                             <li><a href="#">Gallery</a></li>
-                            <li><a href="#">Post</a></li>
+                            <li><a href="{{route("post.create")}}">Post</a></li>
                         </ul>
                     </li>
                     <li><a href="#" accesskey="3" title="">Messages</a></li>
                     <li><a href="#" accesskey="4" title="">Friends</a></li>
-
                     <li><a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

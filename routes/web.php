@@ -16,6 +16,8 @@ Route::get("test-url", function () {
     // īs kkāds kosmosa variants return $user->getPicture();
 });
 
+Route::get("/post/create", "PostController@create")->name("post.create");
+
 Route::get("/{user}", "UserController@show");
 Route::put("/{user}", "UserController@updateImage")->name("updateImage.profile");
 Route::patch("/{user}", "UserController@update")->name("update.profile");
