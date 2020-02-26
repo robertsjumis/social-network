@@ -31,21 +31,21 @@ class PostController extends Controller
         return redirect("/");
     }
 
-    public function index()
-    {
-        $user = auth()->user();
-
-        $posts = DB::table("posts")
-            ->join("followers", "users.id", "=", "follower.id")
-            ->select("*")
-            ->where("created_by", "=", "follows_to_id")
-            ->orderBy("created_at", "desc")
-            ->get();
-
-        $users = DB::table("users")->get("*");
-
-        return view("main", ["users" => $users, "user" => $user, "posts" => $posts]);
-    }
+//    public function index()
+//    {
+//        $user = auth()->user();
+//
+//        $posts = DB::table("posts")
+//            ->join("followers", "users.id", "=", "follower.id")
+//            ->select("*")
+//            ->where("created_by", "=", "follows_to_id")
+//            ->orderBy("created_at", "desc")
+//            ->get();
+//
+//        $users = DB::table("users")->get("*");
+//
+//        return view("main", ["users" => $users, "user" => $user, "posts" => $posts]);
+//    }
 
     public function show(Post $post)
     {

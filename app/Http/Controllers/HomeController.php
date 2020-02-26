@@ -34,7 +34,7 @@ class HomeController extends Controller
             ->select("*")
             ->orderBy("posts.created_at", "desc")
             ->get();
-
+                
         $users = DB::table("users")->get("*");
 
         return view("main", ["users" => $users, "user" => $user, "posts" => $posts]);
