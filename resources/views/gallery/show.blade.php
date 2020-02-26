@@ -17,7 +17,7 @@
                         </ul>
                     </li>
                     <li><a href="#" accesskey="3" title="">Messages</a></li>
-                    <li><a href="#" accesskey="4" title="">Friends</a></li>
+                    <li><a href="/friends" accesskey="4" title="">Friends</a></li>
                     <li><a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
