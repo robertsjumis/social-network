@@ -35,7 +35,12 @@ class PostController extends Controller
     {
         $user = auth()->user();
 
-        $posts = DB::table("posts")->select("*")->orderBy("created_at", "desc")->get();
+        $posts = DB::table("posts")
+            ->join("followers", "users.id", "=", "follower.id")
+            ->select("*")
+            ->where("created_by", "=", "follows_to_id")
+            ->orderBy("created_at", "desc")
+            ->get();
 
         $users = DB::table("users")->get("*");
 

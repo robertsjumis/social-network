@@ -50,6 +50,10 @@
                         @csrf
                         <button type="submit" class="btn btn-light">Invite friend</button>
                     </form>
+                    <form action="/followers/{{$user->id}}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-dark">Follow</button>
+                    </form>
                 </div>
             </div>
             <div class="card-body">

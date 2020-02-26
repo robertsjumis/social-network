@@ -35,6 +35,10 @@ Route::get("/friends", "FriendController@index")->name("friends.index");
 Route::post("/friends/{inviteRecipientId}", "FriendController@invite")->name("friends.invite");
 Route::put("/friends/{senderId}", "FriendController@accept")->name("friends.accept");
 
+//followers
+Route::post("/followers/{followingToId}", "FollowerController@store")->name("follower.store");
+
+
 
 
 

@@ -15,6 +15,8 @@ class CreateFollowersTable extends Migration
     {
         Schema::create('followers', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger("follower_id");
+            $table->bigInteger("follows_to_id");
             $table->timestamps();
         });
     }

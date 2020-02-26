@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Follower;
 use App\FriendInvitation;
 use App\FriendLink;
 use App\User;
@@ -69,6 +70,16 @@ class FriendController extends Controller
         FriendLink::create([
             "friend1_id" => $senderId,
             "friend2_id" => $user->id
+        ]);
+
+        // created followers to each other
+        Follower::create([
+            "follower_id" => $user->id,
+            "follows_to_id" => $senderId
+        ]);
+        Follower::create([
+            "follower_id" => $senderId,
+            "follows_to_id" => $user->id
         ]);
 
         // deletes the friend invitation

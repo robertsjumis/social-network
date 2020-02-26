@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Follower;
 use App\Post;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,13 +29,11 @@ class HomeController extends Controller
     {
         $user = auth()->user();
 
-        $posts = DB::table("posts")->select("*")->orderBy("created_at", "desc")->get();
-
-        //$content = DB::table("galleries")->select("id", "created_at", "created_by")->orderBy("created_at", "desc")->union($posts)->get();
-
-        //Post::join("galleries", 'posts.created_at', '=', 'galleries.created_at')->select("*")->get();
-
-        //var_dump($content);
+        $posts = DB::table("posts")
+            ->crossJoin("followers", "posts.created_by", "=", "followers.follows_to_id")
+            ->select("*")
+            ->orderBy("posts.created_at", "desc")
+            ->get();
 
         $users = DB::table("users")->get("*");
 
