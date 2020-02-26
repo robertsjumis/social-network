@@ -6,6 +6,7 @@
             <div id="logo">
                 <img style="max-width:100px; max-height:100px" src="{{$user->image_location()}}" alt=""/>
                 <h1><a href="/{{$user->id}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
+{{--                zemāko ifu jāaizvieto ar policy--}}
                 @if($showEditProfileButton)
                     <form action="{{$user->id}}/edit" method="GET">
                         <button type="submit" class="btn btn-primary">
@@ -24,7 +25,7 @@
                         </ul>
                     </li>
                     <li><a href="#" accesskey="3" title="">Messages</a></li>
-                    <li><a href="#" accesskey="4" title="">Friends</a></li>
+                    <li><a href="/friends" accesskey="4" title="">Friends</a></li>
 
                     <li><a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
@@ -45,6 +46,10 @@
                 <div class="title">
                     <h2>{{ $user->name }} {{$user->last_name}}</h2>
                     <h5>{{ $user->bio()}}</h5>
+                    <form action="/friends/{{$user->id}}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-light">Invite friend</button>
+                    </form>
                 </div>
             </div>
             <div class="card-body">

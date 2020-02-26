@@ -11,6 +11,8 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
+    protected $primaryKey = 'id';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -37,6 +39,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
 
     public function image_location(): string
     {

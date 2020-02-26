@@ -21,7 +21,7 @@ class PostController extends Controller
     {
         $user = auth()->user();
 
-        $post = Post::create([
+        Post::create([
             'title' => request()->get("title"),
             'body' => request()->get("body"),
             "created_by" => $user->id,

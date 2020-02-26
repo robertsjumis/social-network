@@ -1,6 +1,6 @@
 <?php
 
-
+Route::middleware("auth")->get('/', 'HomeController@index');
 
 Auth::routes(["verify" => true]);
 
@@ -17,7 +17,6 @@ Route::get("test-url", function () {
 });
 
 //posts
-Route::middleware("auth")->get('/', 'PostController@index');
 Route::get("/post/create", "PostController@create")->name("post.create");
 Route::post("/post", "PostController@store")->name("post.store");
 Route::get("/post/{post}", "PostController@show")->name("post.show");
@@ -28,13 +27,18 @@ Route::delete("/post/{post}", "PostController@destroy")->name("post.delete");
 //galleries
 Route::get("/gallery/create", "GalleryController@create")->name("gallery.create");
 Route::post("/gallery", "GalleryController@store")->name("gallery.store");
-Route::get("/gallery/{gallery}/2", "GalleryController@edit")->name("gallery.edit");
+Route::get("/gallery/{gallery}/edit", "GalleryController@edit")->name("gallery.edit");
+Route::get("/gallery/{gallery}", "GalleryController@show")->name("gallery.show");
+
+//friends
+Route::get("/friends", "FriendController@index")->name("friends.index");
+Route::post("/friends/{inviteRecipientId}", "FriendController@invite")->name("friends.invite");
+Route::put("/friends/{senderId}", "FriendController@accept")->name("friends.accept");
 
 
 
 
-
-Route::get("/{user}", "UserController@show");
+Route::get("/{user}", "UserController@show")->name("user.profile");
 Route::put("/{user}", "UserController@updateImage")->name("updateImage.profile");
 Route::patch("/{user}", "UserController@update")->name("update.profile");
 Route::get("/{user}/edit", "UserController@edit")->name("edit.profile");
