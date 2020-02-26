@@ -42,9 +42,32 @@
                     @csrf
                     @method("put")
                     Gallery name:
-                    <input type="text" name="title" value="{{$gallery->title}}" required />
+                    <input type="text" name="title" value="{{$gallery->title}}" required/>
 
                     <button type="submit" class="btn btn-primary">Next</button>
+                </form>
+                @foreach($images as $image)
+                    <img style="max-width:100px; max-height:100px" src="{{asset($image)}}" alt=""/>
+                @endforeach
+                <form action="/gallery/{{$gallery->id}}/image" method="post"
+                      enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group row">
+                        <label for="image"
+                               class="col-md-4 col-form-label text-md-right">{{ __('Add image') }}</label>
+                        <div class="col-md-6">
+
+                            Select image to upload:
+                            <input type="file" name="image" id="fileToUpload"
+                                   class="@error('image') is-invalid @enderror">
+                            <input type="submit" name="uploadImage" value="Upload Image">
+                            @error('image')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('image') }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
                 </form>
                 <form action="/gallery"></form>
             </div>

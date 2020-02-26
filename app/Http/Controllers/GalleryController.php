@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Gallery;
+use App\Http\Requests\UploadImage;
+use App\Image;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
 {
@@ -31,7 +35,37 @@ class GalleryController extends Controller
     {
         $user = auth()->user();
 
-        return view('/gallery/edit', ["user" => $user, "gallery" => $gallery]);
+        $images = Image::where("gallery_id", $gallery->id)
+            ->pluck("image_location")
+            ->toArray();
+
+        $newImages = [];
+
+        foreach($images as $image)
+        {
+            $newImages[] = Storage::url($image);
+        }
+
+        return view('/gallery/edit', ["user" => $user, "images" => $newImages, "gallery" => $gallery]);
+    }
+
+    public function update(Gallery $gallery)
+    {
+        $gallery->update([
+            "title" => request()->title,
+            "updated_at" => NOW()
+        ]);
+    }
+
+    public function uploadImage(Gallery $gallery, UploadImage $request, User $user) //upload image
+    {
+        $user->update([
+            "image_location" => request()->file("image")->store("galleries", "public")
+        ]);
+
+        $user->save();
+
+        return redirect(route("gallery.edit", ["user" => $user]));
     }
 
 }

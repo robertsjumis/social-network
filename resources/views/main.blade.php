@@ -53,6 +53,10 @@
                         @endforeach
                         @ {{$post->created_at}}</span>
                     <h5>{{$post->body}}</h5>
+                    <form>
+                        @csrf
+
+                    </form>
                 </div>
 
             </div>

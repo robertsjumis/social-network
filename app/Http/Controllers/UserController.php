@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\FriendLink;
 use App\Http\Requests\UploadImage;
 use App\User;
 use Illuminate\Http\Request;
@@ -18,7 +19,22 @@ class UserController extends Controller
     {
         $showEditProfileButton = auth()->user() == $user ? true : false;
 
-        return view("/users/profile", ["user" => $user, "showEditProfileButton" => $showEditProfileButton]); //TODO: pārtaisīt uz slug. pamācība pieejama day22/app/user.php failā
+        //gathers friends
+        $friendsIds = FriendLink::where("friend1_id", $user->id)
+            ->pluck("friend2_id")
+            ->toArray();
+
+        $friends = [];
+
+        foreach ($friendsIds as $friendId) {
+            $friends[] = User::find($friendId);
+        }
+
+        return view("/users/profile", [
+            "user" => $user,
+            "showEditProfileButton" => $showEditProfileButton,
+            "friends" => $friends
+            ]); //TODO: pārtaisīt uz slug. pamācība pieejama day22/app/user.php failā
     }
 
     public function index() // show all

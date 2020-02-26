@@ -83,6 +83,11 @@
                 <div class="title">
                     <h4>Friends</h4>
                 </div>
+                @foreach($friends as $friend)
+                    <div>
+                        <h5>{{$friend->name}} {{$friend->last_name}}</h5>
+                    </div>
+                @endforeach
             </div>
             <div id="welcome">
                 <div class="title">

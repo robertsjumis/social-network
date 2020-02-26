@@ -28,7 +28,10 @@ Route::delete("/post/{post}", "PostController@destroy")->name("post.delete");
 Route::get("/gallery/create", "GalleryController@create")->name("gallery.create");
 Route::post("/gallery", "GalleryController@store")->name("gallery.store");
 Route::get("/gallery/{gallery}/edit", "GalleryController@edit")->name("gallery.edit");
+Route::post("/gallery/{gallery}/image", "ImageController@upload")->name("image.upload");
 Route::get("/gallery/{gallery}", "GalleryController@show")->name("gallery.show");
+Route::put("/gallery/{gallery}, GalleryController@update")->name("gallery.update");
+
 
 //friends
 Route::get("/friends", "FriendController@index")->name("friends.index");
@@ -38,10 +41,7 @@ Route::put("/friends/{senderId}", "FriendController@accept")->name("friends.acce
 //followers
 Route::post("/followers/{followingToId}", "FollowerController@store")->name("follower.store");
 
-
-
-
-
+//user
 Route::get("/{user}", "UserController@show")->name("user.profile");
 Route::put("/{user}", "UserController@updateImage")->name("updateImage.profile");
 Route::patch("/{user}", "UserController@update")->name("update.profile");
