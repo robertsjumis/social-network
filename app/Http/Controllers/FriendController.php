@@ -10,15 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class FriendController extends Controller
 {
-    public function friends()
-    {
-        $user = auth()->user();
-
-        $users = DB::table("users")->get("*");
-
-        return view("friends", ["users" => $users, "user" => $user]);
-    }
-
     public function invite(int $inviteRecipientId)
     {
         $inviteSender = auth()->user();
