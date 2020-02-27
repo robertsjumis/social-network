@@ -86,7 +86,6 @@ class GalleryController extends Controller
 
         $likeCount = count(Like::where(["liked_content_id" => $gallery->id, "liked_content_type" => "gallery"])->get());
 
-
         return view("/gallery/show", [
             "user" => $user,
             "images" => $newImages,
