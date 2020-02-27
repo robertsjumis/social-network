@@ -35,11 +35,11 @@ Route::put("/gallery/{gallery}, GalleryController@update")->name("gallery.update
 
 //friends
 Route::get("/friends", "FriendController@index")->name("friends.index");
-Route::post("/friends/{inviteRecipientId}", "FriendController@invite")->name("friends.invite");
-Route::put("/friends/{senderId}", "FriendController@accept")->name("friends.accept");
+Route::post("/friends/{inviteRecipient}", "FriendController@invite")->name("friends.invite");
+Route::put("/friends/{sender}", "FriendController@accept")->name("friends.accept");
 
 //followers
-Route::post("/followers/{followingToId}", "FollowerController@store")->name("follower.store");
+Route::post("/followers/{user}", "FollowerController@store")->name("follower.store");
 
 //likes
 Route::post("/post/{post}/like", "LikeController@likePost")->name("like.create");
@@ -50,7 +50,7 @@ Route::get("/messages", "MessageController@show")->name("message.show");
 
 
 //user
-Route::get("/{user}", "UserController@show")->name("user.profile");
+Route::get("/{viewedUser}", "UserController@show")->name("user.profile");
 Route::put("/{user}", "UserController@updateImage")->name("updateImage.profile");
 Route::patch("/{user}", "UserController@update")->name("update.profile");
 Route::get("/{user}/edit", "UserController@edit")->name("edit.profile");

@@ -5,10 +5,10 @@
         <div id="header">
             <div id="logo">
                 <img style="max-width:100px; max-height:100px" src="{{$user->image_location()}}" alt=""/>
-                <h1><a href="/{{$user->id}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
+                <h1><a href="/{{$user->slug}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
 {{--                zemāko ifu jāaizvieto ar policy--}}
                 @if($showEditProfileButton)
-                    <form action="{{$user->id}}/edit" method="GET">
+                    <form action="{{$user->slug}}/edit" method="GET">
                         <button type="submit" class="btn btn-primary">
                             {{ __('Update profile') }}
                         </button>
@@ -18,7 +18,7 @@
             <div id="menu">
                 <ul>
                     <li><a href="/" accesskey="1" title="">Main</a></li>
-                    <li><a accesskey="2" title="">New Picsy</a>
+                    <li><a accesskey="2" title="">New Pix-pie</a>
                         <ul class="dropdown">
                             <li><a href="{{route("gallery.create")}}">Gallery</a></li>
                             <li><a href="{{route("post.create")}}">Post</a></li>
@@ -40,17 +40,17 @@
             </div>
         </div>
         <div id="main">
-            <img style="max-width:200px; max-height:200px" src="{{ $user->image_location() }}"
+            <img style="max-width:200px; max-height:200px" src="{{ $viewedUser->image_location() }}"
                  alt="User profile image">
             <div id="welcome">
                 <div class="title">
-                    <h2>{{ $user->name }} {{$user->last_name}}</h2>
-                    <h5>{{ $user->bio()}}</h5>
-                    <form action="/friends/{{$user->id}}" method="POST">
+                    <h2>{{ $viewedUser->name }} {{$viewedUser->last_name}}</h2>
+                    <h5>{{ $viewedUser->bio()}}</h5>
+                    <form action="/friends/{{$viewedUser->slug}}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-light">Invite friend</button>
                     </form>
-                    <form action="/followers/{{$user->id}}" method="POST">
+                    <form action="/followers/{{$viewedUser->slug}}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-dark">Follow</button>
                     </form>
@@ -84,7 +84,7 @@
                     <h4>Friends</h4>
                     @foreach($friends as $friend)
                         <div>
-                            <h5>{{$friend->name}} {{$friend->last_name}}</h5>
+                            <h5><a href="{{$friend->slug}}">{{$friend->name}} {{$friend->last_name}}</a></h5>
                         </div>
                     @endforeach
                 </div>

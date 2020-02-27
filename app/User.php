@@ -41,6 +41,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function getRouteKeyName()
+    {
+        return "slug";
+    }
+
     public function galleries()
     {
         return $this->hasMany(Gallery::class);

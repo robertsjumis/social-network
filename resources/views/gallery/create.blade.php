@@ -4,13 +4,13 @@
         <div id="header">
             <div id="logo">
                 <img style="max-width:100px; max-height:100px" src="{{$user->image_location()}}" alt=""/>
-                <h1><a href="/{{$user->id}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
+                <h1><a href="/{{$user->slug}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
 
             </div>
             <div id="menu">
                 <ul>
                     <li><a href="/" accesskey="1" title="">Main</a></li>
-                    <li class="current_page_item"><a accesskey="2" title="">New Picsy</a>
+                    <li class="current_page_item"><a accesskey="2" title="">New Pix-pie</a>
                         <ul class="dropdown">
                             <li><a href="{{route("gallery.create")}}">Gallery</a></li>
                             <li><a href="{{route("post.create")}}">Post</a></li>

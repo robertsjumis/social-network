@@ -3,19 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Follower;
+use App\User;
 use Illuminate\Http\Request;
 
 class FollowerController extends Controller
 {
-    public function store(int $followToId)
+    public function store(User $user)
     {
-        $user = auth()->user();
+        $follower = auth()->user();
 
         Follower::create([
-            "follower_id" => $user->id,
-            "follows_to_id" => $followToId
+            "follower_id" => $follower->id,
+            "follows_to_id" => $user->id
         ]);
 
-        return redirect(route("user.profile", $followToId));
+        return redirect(route("user.profile", $user->slug));
     }
 }

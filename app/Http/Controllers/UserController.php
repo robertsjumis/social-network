@@ -17,9 +17,12 @@ class UserController extends Controller
         return view('/users/edit', ["user" => $user]);
     }
 
-    public function show(User $user) // shows user's profile page
+    public function show(User $viewedUser) // shows user's profile page
     {
-        $showEditProfileButton = auth()->user() == $user ? true : false;
+
+        $showEditProfileButton = auth()->user() == $viewedUser ? true : false;
+
+        $user = auth()->user();
 
         //gathers friends
         $friendsIds = FriendLink::where("friend1_id", $user->id)
@@ -40,6 +43,7 @@ class UserController extends Controller
 
         return view("/users/profile", [
             "user" => $user,
+            "viewedUser" => $viewedUser,
             "showEditProfileButton" => $showEditProfileButton,
             "friends" => $friends
             ]); //TODO: pārtaisīt uz slug. pamācība pieejama day22/app/user.php failā
@@ -68,6 +72,10 @@ class UserController extends Controller
         $newValue = current(request()->only($user->getFillable()));
 
         $user->$userFillable = $newValue;
+
+        $user->save();
+
+        $user->slug = $user->name . $user->last_name . "-" . $user->id;
 
         $user->save();
 

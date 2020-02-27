@@ -11,16 +11,16 @@ use Illuminate\Support\Facades\DB;
 
 class FriendController extends Controller
 {
-    public function invite(int $inviteRecipientId)
+    public function invite(User $inviteRecipient)
     {
         $inviteSender = auth()->user();
 
         FriendInvitation::create([
             "invite_sender_id" => $inviteSender->id,
-            "invite_recipient_id" => $inviteRecipientId
+            "invite_recipient_id" => $inviteRecipient->id
         ]);
 
-        return redirect(route("user.profile", $inviteRecipientId));
+        return redirect(route("user.profile", $inviteRecipient->slug));
     }
 
     public function index()
@@ -57,7 +57,7 @@ class FriendController extends Controller
         ]);
     }
 
-    public function accept(int $senderId)
+    public function accept(User $sender)
     {
         $user = auth()->user();
 
@@ -65,26 +65,26 @@ class FriendController extends Controller
 
         FriendLink::create([
             "friend1_id" => $user->id,
-            "friend2_id" => $senderId
+            "friend2_id" => $sender->id
         ]);
         FriendLink::create([
-            "friend1_id" => $senderId,
+            "friend1_id" => $sender->id,
             "friend2_id" => $user->id
         ]);
 
         // created followers to each other
         Follower::create([
             "follower_id" => $user->id,
-            "follows_to_id" => $senderId
+            "follows_to_id" => $sender->id
         ]);
         Follower::create([
-            "follower_id" => $senderId,
+            "follower_id" => $sender->id,
             "follows_to_id" => $user->id
         ]);
 
         // deletes the friend invitation
-        FriendInvitation::where(["invite_sender_id" => $senderId], ["invite_recipient_id" => $user->id])->delete();
-        FriendInvitation::where(["invite_recipient_id" => $senderId], ["invite_sender_id" => $user->id])->delete();
+        FriendInvitation::where(["invite_sender_id" => $sender->id], ["invite_recipient_id" => $user->id])->delete();
+        FriendInvitation::where(["invite_recipient_id" => $sender->id], ["invite_sender_id" => $user->id])->delete();
 
         return redirect(route("friends.index"));
     }

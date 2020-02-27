@@ -4,13 +4,14 @@
         <div id="header">
             <div id="logo">
                 <img style="max-width:100px; max-height:100px" src="{{$user->image_location()}}" alt=""/>
-                <h1><a href="/{{$user->id}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
+                <h1><a href="/{{$user->slug}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
+                <span><a href="/{{$user->slug}}#galleries">Posts</a> | <a href="/{{$user->slug}}">Galleries</a></span>
 
             </div>
             <div id="menu">
                 <ul>
                     <li><a href="/" accesskey="1" title="">Main</a></li>
-                    <li><a accesskey="2" title="">New Picsy</a>
+                    <li><a accesskey="2" title="">New Pix-pie</a>
                         <ul class="dropdown">
                             <li><a href="{{route("gallery.create")}}">Gallery</a></li>
                             <li><a href="{{route("post.create")}}">Post</a></li>
@@ -41,8 +42,10 @@
                 </div>
                 @foreach($invitationSenders as $invitationSender)
                     <div>
-                        <h5>{{$invitationSender->name}} {{$invitationSender->last_name}} sent you a friend request!</h5>
-                        <form method="POST" action="friends/{{$invitationSender->id}}">
+                        <h5><a href="/{{$invitationSender->slug}}">
+                                {{$invitationSender->name}} {{$invitationSender->last_name}}
+                            </a> sent you a friend request!</h5>
+                        <form method="POST" action="friends/{{$invitationSender->slug}}">
                             @csrf
                             @method("put")
                             <button type="submit" class="btn btn-primary">Accept</button>
