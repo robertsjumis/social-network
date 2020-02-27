@@ -16,7 +16,7 @@
                             <li><a href="{{route("post.create")}}">Post</a></li>
                         </ul>
                     </li>
-                    <li><a href="#" accesskey="3" title="">Messages</a></li>
+                    <li><a href="/messages" accesskey="3" title="">Messages</a></li>
                     <li><a href="/friends" accesskey="4" title="">Friends</a></li>
                     <li><a href="{{ route('logout') }}"
                            onclick="event.preventDefault();

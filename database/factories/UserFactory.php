@@ -31,3 +31,7 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
     ];
 });
+$factory->afterCreating(User::class, function (User $user, Faker $faker) {
+    $user->slug = $user->name . $user->last_name . "-" . $user->id;
+    $user->save();
+});

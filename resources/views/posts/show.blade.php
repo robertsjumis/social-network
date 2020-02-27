@@ -16,7 +16,7 @@
                             <li><a href="{{route("post.create")}}">Post</a></li>
                         </ul>
                     </li>
-                    <li><a href="#" accesskey="3" title="">Messages</a></li>
+                    <li><a href="/messages" accesskey="3" title="">Messages</a></li>
                     <li><a href="/friends" accesskey="4" title="">Friends</a></li>
                     <li><a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
@@ -40,6 +40,11 @@
 
                 <h4>{{$post->body}}</h4>
             </div>
+            Liked: {{$likeCount}}
+            <form action="/post/{{$post->id}}/like" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-primary">Like</button>
+            </form>
             @if($showEditPostButton)
                 <form action="/post/{{$post->id}}/edit" method="GET">
                     @csrf

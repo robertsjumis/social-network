@@ -68,4 +68,22 @@ class GalleryController extends Controller
         return redirect(route("gallery.edit", ["user" => $user]));
     }
 
+    public function show(Gallery $gallery)
+    {
+        $user = auth()->user();
+
+        $images = Image::where("gallery_id", $gallery->id)
+            ->pluck("image_location")
+            ->toArray();
+
+        $newImages = [];
+
+        foreach($images as $image)
+        {
+            $newImages[] = Storage::url($image);
+        }
+
+        return view("/gallery/show", ["user" => $user, "images" => $newImages, "gallery" => $gallery]);
+    }
+
 }

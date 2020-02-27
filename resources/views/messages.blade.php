@@ -9,14 +9,14 @@
             </div>
             <div id="menu">
                 <ul>
-                    <li class="current_page_item"><a href="/" accesskey="1" title="">Main</a></li>
+                    <li><a href="/" accesskey="1" title="">Main</a></li>
                     <li><a accesskey="2" title="">New Picsy</a>
                         <ul class="dropdown">
                             <li><a href="{{route("gallery.create")}}">Gallery</a></li>
                             <li><a href="{{route("post.create")}}">Post</a></li>
                         </ul>
                     </li>
-                    <li><a href="/messages" accesskey="3" title="">Messages</a></li>
+                    <li class="current_page_item"><a href="/messages" accesskey="3" title="">Messages</a></li>
                     <li><a href="/friends" accesskey="4" title="">Friends</a></li>
                     <li><a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
@@ -35,32 +35,12 @@
 
             <div id="welcome">
                 <div class="title">
-                    <h2>New posts n stuff</h2>
+                    <h2>Messages</h2>
                     <span
-                        class="byline">Cool stuff, huh?</span>
+                        class="byline">Coming soon</span>
                 </div>
 
             </div>
-            @if(count($posts) == 0)
-                <h4>Nothing here right now</h4>
-            @endif
-            @foreach($posts as $post)
-                <div id="featured">
-                    <div class="title">
-                        <h3><a href="/post/{{$post->id}}">{{$post->title}}</a></h3>
-                        <span class="byline">By
-                        @foreach($users as $user)
-                                @if($user->id == $post->created_by)
-                                    <a href="/{{$user->id}}">{{$user->name}} {{$user->last_name}}</a>
-                                @endif
-                            @endforeach
-                        @ {{$post->created_at}}</span>
-                        <h5>{{$post->body}}</h5>
-
-                    </div>
-
-                </div>
-            @endforeach
         </div>
     </div>
 @endsection

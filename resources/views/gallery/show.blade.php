@@ -16,7 +16,7 @@
                             <li><a href="{{route("post.create")}}">Post</a></li>
                         </ul>
                     </li>
-                    <li><a href="#" accesskey="3" title="">Messages</a></li>
+                    <li><a href="/messages" accesskey="3" title="">Messages</a></li>
                     <li><a href="/friends" accesskey="4" title="">Friends</a></li>
                     <li><a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
@@ -33,18 +33,13 @@
         <div id="main">
             <div id="welcome">
                 <div class="title">
-                    <h2>Create a new gallery</h2>
+                    <h2>{{$gallery->title}}</h2>
                     <span
-                        class="byline">He, who fights the change, is fighting the future</span>
+                        class="byline">Some other generic quote</span>
                 </div>
-
-                <form action="/gallery" method="POST">
-                    @csrf
-                    Gallery name:
-                    <input type="text" name="title" placeholder="name goes here" required />
-
-                    <button type="submit" class="btn btn-primary">Next</button>
-                </form>
+                @foreach($images as $image)
+                    <img style="max-width:100px; max-height:100px" src="{{asset($image)}}" alt=""/>
+                @endforeach
             </div>
 
         </div>

@@ -41,11 +41,20 @@ Route::put("/friends/{senderId}", "FriendController@accept")->name("friends.acce
 //followers
 Route::post("/followers/{followingToId}", "FollowerController@store")->name("follower.store");
 
+//likes
+Route::post("/post/{post}/like", "LikeController@likePost")->name("like.create");
+Route::post("/gallery/{gallery}/like", "LikeController@create")->name("like.create");
+
+//messages
+Route::get("/messages", "MessageController@show")->name("message.show");
+
+
 //user
 Route::get("/{user}", "UserController@show")->name("user.profile");
 Route::put("/{user}", "UserController@updateImage")->name("updateImage.profile");
 Route::patch("/{user}", "UserController@update")->name("update.profile");
 Route::get("/{user}/edit", "UserController@edit")->name("edit.profile");
+
 
 
 

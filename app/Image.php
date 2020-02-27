@@ -16,6 +16,11 @@ class Image extends Model
         return Storage::url($this->image_location, 'public');
     }
 
+    public function gallery()
+    {
+        $this->belongsTo(Gallery::class);
+    }
+
 }
 
 

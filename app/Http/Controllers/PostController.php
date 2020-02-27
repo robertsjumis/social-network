@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Like;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -49,12 +50,18 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-
         $user = auth()->user();
 
         $showEditPostButton = auth()->user()->id == $post->created_by ? true : false;
 
-        return view("posts/show", ["post" => $post, "user" => $user, "showEditPostButton" => $showEditPostButton]);
+        $likeCount = count(Like::where(["liked_content_id" => $post->id, "liked_content_type" => "post"])->get());
+
+        return view("posts/show", [
+            "post" => $post,
+            "likeCount" => $likeCount,
+            "user" => $user,
+            "showEditPostButton" => $showEditPostButton
+        ]);
     }
 
     public function edit(Post $post)

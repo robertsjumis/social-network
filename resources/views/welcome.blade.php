@@ -16,10 +16,16 @@
                     <h2>Welcome</h2>
                 </div>
             </div>
-            Welcome to my social network,
+            <h3>Welcome to Pic-pies,</h3>
+            <h3>the future of the social networks</h3>
+            <br>
+            <h5>This was created as a final test for <a href="https://www.codelex.io">Codelex</a> coding school</h5>
+            <br>
+            <h5>If you have come this far, you have probably glanced over the source code of all this.
+                If not, you are welcome to visit <a href="https://www.github.com/robertsjumis/social-network">Github</a>
+                where this project is published.</h5>
 
-            You are welcome to use it, just login
-
+            <h5>Other than that, please use login/register to access the features of this social network!</h5>
 
 
         </div>

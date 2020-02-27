@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\FriendLink;
+use App\Gallery;
 use App\Http\Requests\UploadImage;
+use App\Post;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -29,6 +31,12 @@ class UserController extends Controller
         foreach ($friendsIds as $friendId) {
             $friends[] = User::find($friendId);
         }
+
+        //gathers galleries
+        $galleries = Gallery::where("created_by", $user->id);
+
+
+        //gathers posts
 
         return view("/users/profile", [
             "user" => $user,
@@ -69,5 +77,8 @@ class UserController extends Controller
     public function destroy() // deletes the user
     {
 
+
     }
+
+
 }

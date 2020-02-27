@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,7 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'last_name', 'email', 'password', "address", "image_location", "phone", "bio", "birthday"
+        'name', 'last_name', 'email', 'password', "address", "image_location", "phone", "bio", "birthday", "slug"
     ];
 
     /**
@@ -39,6 +40,16 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function galleries()
+    {
+        return $this->hasMany(Gallery::class);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 
 
     public function image_location(): string
@@ -67,4 +78,38 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
+
 }
+/* kaa uztaisit slug url:
+jaunu user kontolieri,
+show(User $user) {
+[$id, $name] = explode("-", $slug);
+
+return User;
+}
+
+jaunu route:
+Route::get("/{user}", "UsersConstroller@show"); sho routu vajag pedejo lapaa
+
+vai
+
+show(string $slug) {
+[$id, $name] = explode("-", $slug);
+
+return User::findOrFail($id);
+}
+
+jaunu route:
+Route::get("/{slug}", "UsersConstroller@show"); sho routu vajag pedejo lapaa
+
+
+--route binding:
+
+RouteServiceProvider
+
+boot()
+
+Route::bind("user , function($value) {
+return User::where("name",..... no dokumentacijas
+
+*/
