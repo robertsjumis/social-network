@@ -91,7 +91,7 @@
             </div>
             <div id="welcome">
                 <div class="title">
-                    <h4>Galleries</h4>
+                    <h4 id="galleries">Galleries</h4>
 
                 </div>
             </div>

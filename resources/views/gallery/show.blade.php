@@ -41,7 +41,11 @@
                     <img style="max-width:100px; max-height:100px" src="{{asset($image)}}" alt=""/>
                 @endforeach
             </div>
-
+            Liked: {{$likeCount}}
+            <form action="/gallery/{{$gallery->id}}/like" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-primary">Like</button>
+            </form>
         </div>
     </div>
 @endsection

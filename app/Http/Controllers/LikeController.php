@@ -30,8 +30,8 @@ class LikeController extends Controller
         $user = auth()->user();
 
         Like::create([
+            "liked_by_id" => $user->id,
             "liked_content_id" => $gallery->id,
-            "liked_by" => $user->id,
             "liked_content_type" => "gallery"
         ]);
 

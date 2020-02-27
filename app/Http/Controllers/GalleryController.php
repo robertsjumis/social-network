@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Gallery;
 use App\Http\Requests\UploadImage;
 use App\Image;
+use App\Like;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -83,7 +84,15 @@ class GalleryController extends Controller
             $newImages[] = Storage::url($image);
         }
 
-        return view("/gallery/show", ["user" => $user, "images" => $newImages, "gallery" => $gallery]);
+        $likeCount = count(Like::where(["liked_content_id" => $gallery->id, "liked_content_type" => "gallery"])->get());
+
+
+        return view("/gallery/show", [
+            "user" => $user,
+            "images" => $newImages,
+            "gallery" => $gallery,
+            "likeCount" => $likeCount
+        ]);
     }
 
 }

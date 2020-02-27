@@ -43,7 +43,7 @@ Route::post("/followers/{followingToId}", "FollowerController@store")->name("fol
 
 //likes
 Route::post("/post/{post}/like", "LikeController@likePost")->name("like.create");
-Route::post("/gallery/{gallery}/like", "LikeController@create")->name("like.create");
+Route::post("/gallery/{gallery}/like", "LikeController@likeGallery")->name("like.create");
 
 //messages
 Route::get("/messages", "MessageController@show")->name("message.show");

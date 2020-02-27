@@ -5,7 +5,7 @@
             <div id="logo">
                 <img style="max-width:100px; max-height:100px" src="{{$user->image_location()}}" alt=""/>
                 <h1><a href="/{{$user->id}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
-
+                <span><a href="/{{$user->id}}#galleries">Posts</a> | <a href="/{{$user->id}}">Galleries</a></span>
             </div>
             <div id="menu">
                 <ul>
