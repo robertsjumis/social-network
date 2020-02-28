@@ -56,6 +56,11 @@
                         @csrf
                         <button type="submit" class="btn btn-dark">Follow</button>
                     </form>
+                    <form action="/followers/{{$viewedUser->slug}}" method="POST">
+                        @csrf
+                        @method("delete")
+                        <button type="submit" class="btn btn-dark">Unfollow</button>
+                    </form>
                 </div>
             </div>
             <div class="card-body">

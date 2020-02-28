@@ -92,14 +92,12 @@
                                 <input id="name"
                                        @if ($userProperty == "birthday")
                                        type="date"
-                                       @elseif($userProperty == "bio")
-                                       type="textarea"
                                        @else
                                        type="text"
                                        @endif
                                        class="form-control @error($userProperty) is-invalid @enderror"
                                        name="{{ $userProperty }}"
-                                       value="{{ $user->$userProperty }}" required
+                                       value="{{ old($userProperty) ?? $user->$userProperty }}" required
                                        autocomplete="{{ $user->$userProperty }}"
                                        autofocus>
                             </div>

@@ -40,6 +40,7 @@ Route::put("/friends/{sender}", "FriendController@accept")->name("friends.accept
 
 //followers
 Route::post("/followers/{user}", "FollowerController@store")->name("follower.store");
+Route::delete("/followers/{user}", "FollowerController@unfollow")->name("follower.delete");
 
 //likes
 Route::post("/post/{post}/like", "LikeController@likePost")->name("like.create");

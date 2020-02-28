@@ -68,8 +68,6 @@ class UserController extends Controller
 
     public function update(User $user) //TODO: jāuztaisa Request klasi, kas validē inputus
     {
-        var_dump(request()->name . request()->last_name . "-" . $user->id);die;
-
         $user->update([
             "name" => request()->name,
             "last_name" => request()->last_name,

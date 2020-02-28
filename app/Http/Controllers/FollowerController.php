@@ -19,4 +19,13 @@ class FollowerController extends Controller
 
         return redirect(route("user.profile", $user->slug));
     }
+
+    public function unfollow(User $user)
+    {
+        $follower = auth()->user();
+
+        Follower::where(["follower_id" => $follower->id],["follows_to_id" => $user->id])->delete();
+
+        return redirect(route("user.profile", $user->slug));
+    }
 }
