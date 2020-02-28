@@ -5,7 +5,8 @@
             <div id="logo">
                 <img style="max-width:100px; max-height:100px" src="{{$user->image_location()}}" alt=""/>
                 <h1><a href="/{{$user->slug}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
-                <span><a href="/{{$user->slug}}#posts">Posts</a> | <a href="/{{$user->slug}}#galleries">Galleries</a></span>
+                <span><a href="/{{$user->slug}}#posts">Posts</a> | <a
+                        href="/{{$user->slug}}#galleries">Galleries</a></span>
             </div>
             <div id="menu">
                 <ul>
@@ -35,7 +36,7 @@
 
             <div id="welcome">
                 <div class="title">
-                    <h2>New posts n stuff</h2>
+                    <h2>New posts</h2>
                     <span
                         class="byline">Cool stuff, huh?</span>
                 </div>
@@ -49,9 +50,9 @@
                     <div class="title">
                         <h3><a href="/post/{{$post->id}}">{{$post->title}}</a></h3>
                         <span class="byline">By
-                        @foreach($users as $user)
-                                @if($user->id == $post->created_by)
-                                    <a href="/{{$user->slug}}">{{$user->name}} {{$user->last_name}}</a>
+                        @foreach($postAuthors as $author)
+                                @if($author->id == $post->created_by)
+                                    <a href="/{{$author->slug}}">{{$author->name}} {{$author->last_name}}</a>
                                 @endif
                             @endforeach
                         @ {{$post->created_at}}</span>
@@ -61,6 +62,7 @@
 
                 </div>
             @endforeach
+
         </div>
     </div>
 @endsection

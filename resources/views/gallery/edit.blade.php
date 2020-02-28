@@ -5,7 +5,8 @@
             <div id="logo">
                 <img style="max-width:100px; max-height:100px" src="{{$user->image_location()}}" alt=""/>
                 <h1><a href="/{{$user->slug}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
-                <span><a href="/{{$user->slug}}#posts">Posts</a> | <a href="/{{$user->slug}}#galleries">Galleries</a></span>
+                <span><a href="/{{$user->slug}}#posts">Posts</a> | <a
+                        href="/{{$user->slug}}#galleries">Galleries</a></span>
 
             </div>
             <div id="menu">
@@ -35,8 +36,13 @@
             <div id="welcome">
                 <div class="title">
                     <h2>Modify your gallery</h2>
-                    <span
-                        class="byline">He, who fights the change, is fighting the future</span>
+                    <form method="POST" action="/gallery/{{$gallery->id}}">
+                        @csrf
+                        @method("delete")
+                        <button type="submit" class="btn btn-danger">
+                            Delete gallery
+                        </button>
+                    </form>
                 </div>
 
                 <form action="/gallery" method="POST">
@@ -48,7 +54,15 @@
                     <button type="submit" class="btn btn-primary">Next</button>
                 </form>
                 @foreach($images as $image)
-                    <img style="max-width:100px; max-height:100px" src="{{asset($image)}}" alt=""/>
+                    <br>
+                    <img style="max-width:200px; max-height:200px" src="{{asset($image)}}" alt=""/>
+                    <form method="POST" action="/">
+                        @csrf
+                        @method("delete")
+                        <button type="submit" class="btn btn-danger">
+                            Delete image
+                        </button>
+                    </form>
                 @endforeach
                 <form action="/gallery/{{$gallery->id}}/image" method="post"
                       enctype="multipart/form-data">
@@ -70,7 +84,11 @@
                         </div>
                     </div>
                 </form>
-                <form action="/gallery"></form>
+                <form action="/gallery/{{$gallery->id}}" method="GET">
+                    <button type="submit" class="btn btn-light">
+                        Done
+                    </button>
+                </form>
             </div>
 
         </div>

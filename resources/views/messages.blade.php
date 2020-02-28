@@ -4,8 +4,9 @@
         <div id="header">
             <div id="logo">
                 <img style="max-width:100px; max-height:100px" src="{{$user->image_location()}}" alt=""/>
-                <h1><a href="/{{$user->id}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
-
+                <h1><a href="/{{$user->slug}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
+                <span><a href="/{{$user->slug}}#posts">Posts</a> | <a
+                        href="/{{$user->slug}}#galleries">Galleries</a></span>
             </div>
             <div id="menu">
                 <ul>
@@ -37,9 +38,9 @@
                 <div class="title">
                     <h2>Messages</h2>
                     <span
-                        class="byline">Coming soon</span>
+                        class="byline">Under Construction</span>
                 </div>
-
+                <img src="{{asset("/under_construction.jpg")}}"/>
             </div>
         </div>
     </div>

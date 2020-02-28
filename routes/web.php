@@ -10,12 +10,6 @@ Route::get('/welcome', function () {
     return view('welcome');
 })->name("welcome");
 
-//
-Route::get("test-url", function () {
-    // šis darbojas ->  return \Illuminate\Support\Facades\Storage::get("public/empty_profile_img.jpeg"); // download metode nokačā failu, url atgriež path to file, delete izdzēš failu
-    // īs kkāds kosmosa variants return $user->getPicture();
-});
-
 //posts
 Route::get("/post/create", "PostController@create")->name("post.create");
 Route::post("/post", "PostController@store")->name("post.store");
@@ -31,11 +25,15 @@ Route::get("/gallery/{gallery}/edit", "GalleryController@edit")->name("gallery.e
 Route::post("/gallery/{gallery}/image", "ImageController@upload")->name("image.upload");
 Route::get("/gallery/{gallery}", "GalleryController@show")->name("gallery.show");
 Route::put("/gallery/{gallery}, GalleryController@update")->name("gallery.update");
+Route::delete("/gallery/{gallery}, GalleryController@destroy")->name("gallery.delete");
 
+//images
+Route::get("gallery/{gallery}/{image}", "ImageController@show")->name("image.show");
 
 //friends
 Route::get("/friends", "FriendController@index")->name("friends.index");
 Route::post("/friends/{inviteRecipient}", "FriendController@invite")->name("friends.invite");
+Route::delete("/friend/{inviteSender}", "FriendController@rejectInvite")->name("friends.rejectInvite");
 Route::put("/friends/{sender}", "FriendController@accept")->name("friends.accept");
 Route::delete("/friends/{friend}", "FriendController@unfriend")->name("friends.delete");
 

@@ -18,4 +18,11 @@ class ImageController extends Controller
 
         return redirect("/gallery/" . $gallery->id . "/edit");
     }
+
+    public function show(Gallery $gallery, Image $image)
+    {
+        $user = auth()->user();
+
+        return view("gallery/images/show", ["user" => $user, "gallery" => $gallery, "image" => $image]);
+    }
 }

@@ -17,8 +17,13 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->string("title");
             $table->text("body");
-            $table->integer("created_by");
+            $table->unsignedBigInteger("created_by");
             $table->timestamps();
+
+            $table->foreign("created_by")
+                ->references("id")
+                ->on("users")
+                ->onDelete("cascade");
         });
     }
 

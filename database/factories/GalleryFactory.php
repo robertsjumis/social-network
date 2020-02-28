@@ -2,14 +2,13 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Post;
-use App\User;
+use App\Gallery;
+
 use Faker\Generator as Faker;
 
-$factory->define(Post::class, function (Faker $faker) {
+$factory->define(Gallery::class, function (Faker $faker) {
     return [
         'title' => $faker->sentence,
-        'body' => $faker->paragraph,
-        'created_by' => rand(1,10),
+        'created_by' => rand(1,10)
     ];
 });

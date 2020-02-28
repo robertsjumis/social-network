@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Like;
 use App\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
-
 
     public function create()
     {
@@ -32,29 +30,16 @@ class PostController extends Controller
         return redirect("/");
     }
 
-//    public function index()
-//    {
-//        $user = auth()->user();
-//
-//        $posts = DB::table("posts")
-//            ->join("followers", "users.id", "=", "follower.id")
-//            ->select("*")
-//            ->where("created_by", "=", "follows_to_id")
-//            ->orderBy("created_at", "desc")
-//            ->get();
-//
-//        $users = DB::table("users")->get("*");
-//
-//        return view("main", ["users" => $users, "user" => $user, "posts" => $posts]);
-//    }
-
     public function show(Post $post)
     {
         $user = auth()->user();
 
         $showEditPostButton = auth()->user()->id == $post->created_by ? true : false;
 
-        $likeCount = count(Like::where(["liked_content_id" => $post->id, "liked_content_type" => "post"])->get());
+        $likeCount = count(Like::where([
+            "liked_content_id" => $post->id,
+            "liked_content_type" => "post"
+        ])->get());
 
         return view("posts/show", [
             "post" => $post,
@@ -81,17 +66,14 @@ class PostController extends Controller
             "updated_at" => NOW()
         ]);
 
-        $post->save();
-
         return redirect(route("post.show", ["post" => $post]));
     }
 
-    public function destroy(POST $post)
+    public function destroy(Post $post)
     {
         $post->delete();
 
         return redirect("/");
-
     }
 
 }

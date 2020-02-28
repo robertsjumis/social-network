@@ -73,21 +73,21 @@
                     <label for="name"
                            class="col-md-4 col-form-label text-md-right">Address</label>
                     <div class="col-md-6">
-                        {{ $user->address()}}
+                        {{ $viewedUser->address()}}
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="name"
                            class="col-md-4 col-form-label text-md-right">Phone No.</label>
                     <div class="col-md-6">
-                        {{ $user->phone()}}
+                        {{ $viewedUser->phone()}}
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="name"
                            class="col-md-4 col-form-label text-md-right">Birthday</label>
                     <div class="col-md-6">
-                        {{ $user->birthday()}}
+                        {{ $viewedUser->birthday()}}
                     </div>
                 </div>
             </div>
@@ -104,7 +104,21 @@
             <div id="welcome">
                 <div class="title">
                     <h4 id="galleries">Galleries</h4>
-
+                    @foreach($galleries as $gallery)
+                        <div>
+                            <h5><a href="/gallery/{{$gallery->id}}">{{$gallery->title}}</a></h5>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            <div id="welcome">
+                <div class="title">
+                    <h4 id="posts">Posts</h4>
+                    @foreach($posts as $post)
+                        <div>
+                            <h5><a href="/post/{{$post->id}}">{{$post->title}}</a></h5>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

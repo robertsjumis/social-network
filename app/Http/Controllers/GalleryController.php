@@ -73,6 +73,7 @@ class GalleryController extends Controller
     {
         $user = auth()->user();
 
+
         $images = Image::where("gallery_id", $gallery->id)
             ->pluck("image_location")
             ->toArray();
@@ -84,14 +85,25 @@ class GalleryController extends Controller
             $newImages[] = Storage::url($image);
         }
 
+        $images = $gallery->images()->get();
+
         $likeCount = count(Like::where(["liked_content_id" => $gallery->id, "liked_content_type" => "gallery"])->get());
 
         return view("/gallery/show", [
             "user" => $user,
-            "images" => $newImages,
+            "images" => $images,
             "gallery" => $gallery,
             "likeCount" => $likeCount
         ]);
+    }
+
+    public function destroy(Gallery $gallery)
+    {
+        $user = auth()->user();
+
+        $gallery->delete();
+
+        return redirect("/");
     }
 
 }

@@ -20,39 +20,27 @@ class UserController extends Controller
 
     public function show(User $viewedUser) // shows user's profile page
     {
-
-        $showEditProfileButton = auth()->user() == $viewedUser ? true : false;
-
         $user = auth()->user();
 
+        $showEditProfileButton = $user == $viewedUser ? true : false;
+
         //gathers friends
-        $friendsIds = FriendLink::where("friend1_id", $user->id)
-            ->pluck("friend2_id")
-            ->toArray();
-
-        $friends = [];
-
-        foreach ($friendsIds as $friendId) {
-            $friends[] = User::find($friendId);
-        }
+        $friends = $viewedUser->friendsTo()->get();
 
         //gathers galleries
-        $galleries = Gallery::where("created_by", $user->id);
-
+        $galleries = $viewedUser->galleries()->get();
 
         //gathers posts
+        $posts = Post::where("created_by", $viewedUser->id)->get();
 
         return view("/users/profile", [
             "user" => $user,
             "viewedUser" => $viewedUser,
             "showEditProfileButton" => $showEditProfileButton,
-            "friends" => $friends
-        ]); //TODO: pārtaisīt uz slug. pamācība pieejama day22/app/user.php failā
-    }
-
-    public function index() // show all
-    {
-
+            "friends" => $friends,
+            "galleries" => $galleries,
+            "posts" => $posts
+        ]);
     }
 
     public function updateImage(UploadImage $request, User $user) // post request in edit page
@@ -89,14 +77,6 @@ class UserController extends Controller
             'password' => Hash::make(request()->password),
         ]);
         return redirect(route("edit.profile", ["user" => $user]));
-
     }
-
-    public function destroy() // deletes the user
-    {
-
-
-    }
-
 
 }

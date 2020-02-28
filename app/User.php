@@ -46,17 +46,79 @@ class User extends Authenticatable implements MustVerifyEmail
         return "slug";
     }
 
+//relations
     public function galleries()
     {
-        return $this->hasMany(Gallery::class);
+        return $this->hasMany(Gallery::class, "created_by");
     }
 
     public function posts()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Post::class, "created_by");
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
 
+    public function friendsOf()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'friend_links',
+            'friend1_id',
+            'friend2_id');
+    }
+
+    public function friendsTo()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'friend_links',
+            'friend2_id',
+            'friend1_id');
+    }
+
+    public function follower()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'followers',
+            'follower_id',
+            'follows_to_id');
+    }
+
+    public function followsTo()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'followers',
+            'follows_to_id',
+            'follower_id');
+    }
+
+    public function friendInviteSenders()
+    {
+        return $this->belongsToMany(
+            User::class,
+            "friend_invitations",
+            "invite_sender_id",
+            "invite_recipient_id"
+        );
+    }
+
+    public function friendInviteRecipients()
+    {
+        return $this->belongsToMany(
+            User::class,
+            "friend_invitations",
+            "invite_recipient_id",
+            "invite_sender_id"
+        );
+    }
+
+// return fillables
     public function image_location(): string
     {
         return $this->image_location ? Storage::url($this->image_location, 'public') : asset("/default_profile_pic.jpg");
@@ -81,40 +143,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->address ?? "Not yet defined";
     }
-
-
-
 }
-/* kaa uztaisit slug url:
-jaunu user kontolieri,
-show(User $user) {
-[$id, $name] = explode("-", $slug);
-
-return User;
-}
-
-jaunu route:
-Route::get("/{user}", "UsersConstroller@show"); sho routu vajag pedejo lapaa
-
-vai
-
-show(string $slug) {
-[$id, $name] = explode("-", $slug);
-
-return User::findOrFail($id);
-}
-
-jaunu route:
-Route::get("/{slug}", "UsersConstroller@show"); sho routu vajag pedejo lapaa
-
-
---route binding:
-
-RouteServiceProvider
-
-boot()
-
-Route::bind("user , function($value) {
-return User::where("name",..... no dokumentacijas
-
-*/

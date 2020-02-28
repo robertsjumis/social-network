@@ -23,36 +23,29 @@ class FriendController extends Controller
         return redirect(route("user.profile", $inviteRecipient->slug));
     }
 
+    public function rejectInvite(User $inviteSender)
+    {
+        $user = auth()->user();
+
+        FriendInvitation::where(["invite_sender_id" => $inviteSender->id], ["invite_recipient_id" => $user->id])->delete();
+
+        return redirect(route("friends.index"));
+    }
+
     public function index()
     {
         $user = auth()->user();
 
-        //gathers invitations
-        $invitationSenderIds = FriendInvitation::where('invite_recipient_id', $user->id)
-            ->pluck('invite_sender_id')
-            ->toArray();
-
-        $invitationSenders = [];
-
-        foreach ($invitationSenderIds as $invitationSenderId) {
-            $invitationSenders[] = User::find($invitationSenderId);
-        }
+        //gathers friend invitation senders
+        $inviteSenders = $user->friendInviteRecipients()->get();
 
         //gathers friends
-        $friendsIds = FriendLink::where("friend1_id", $user->id)
-            ->pluck("friend2_id")
-            ->toArray();
-
-        $friends = [];
-
-        foreach ($friendsIds as $friendId) {
-            $friends[] = User::find($friendId);
-        }
+        $friends = $user->friendsTo()->get();
 
         //returns to a view
         return view("friends", [
             "user" => $user,
-            "invitationSenders" => $invitationSenders,
+            "inviteSenders" => $inviteSenders,
             "friends" => $friends
         ]);
     }
@@ -71,7 +64,7 @@ class FriendController extends Controller
             "friend2_id" => $user->id
         ]);
 
-        // created followers to each other
+        // creates followers to each other
         Follower::create([
             "follower_id" => $user->id,
             "follows_to_id" => $sender->id
@@ -81,7 +74,7 @@ class FriendController extends Controller
             "follows_to_id" => $user->id
         ]);
 
-        // deletes the friend invitation
+        // deletes the friend invitation(s)
         FriendInvitation::where(["invite_sender_id" => $sender->id], ["invite_recipient_id" => $user->id])->delete();
         FriendInvitation::where(["invite_recipient_id" => $sender->id], ["invite_sender_id" => $user->id])->delete();
 
@@ -93,16 +86,16 @@ class FriendController extends Controller
         $user = auth()->user();
 
         FriendLink::where([
-            "friend1_id" => $user->id],[
+            "friend1_id" => $user->id], [
             "friend2_id" => $friend->id
         ])->delete();
         FriendLink::where([
-            "friend1_id" => $friend->id],[
+            "friend1_id" => $friend->id], [
             "friend2_id" => $user->id
         ])->delete();
 
-        Follower::where(["follower_id" => $user->id],["follows_to_id" => $friend->id])->delete();
-        Follower::where(["follower_id" => $friend->id],["follows_to_id" => $user->id])->delete();
+        Follower::where(["follower_id" => $user->id], ["follows_to_id" => $friend->id])->delete();
+        Follower::where(["follower_id" => $friend->id], ["follows_to_id" => $user->id])->delete();
 
         return redirect(route("user.profile", $friend->slug));
 

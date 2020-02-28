@@ -16,8 +16,13 @@ class CreateGalleriesTable extends Migration
         Schema::create('galleries', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string("title");
-            $table->bigInteger("created_by");
+            $table->unsignedBigInteger("created_by");
             $table->timestamps();
+
+            $table->foreign("created_by")
+                ->references("id")
+                ->on("users")
+                ->onDelete("cascade");
         });
     }
 
