@@ -1,12 +1,10 @@
-5) jāuztaisa eloquent relationship starp visiem modeļiem
-6) taimlainā nerāda savus postsus, to jāizlabo
-7) Midleware kas prasa aizpildīt profilu
+
 7) validācijas (request klases)
 8) Policies.
 8.1. Useri nedrīkst atsekot paši sev. jāizmaina gan viewā, gan backendā
 8.2. Useri nedrīkst uzaicināt draudzēties paši sevi
 8.3. Profile viewā jāizlabo ifs uz @can
-
+10) Pasw change letters 6, jaizlobo viewi
 9) bold/italic
 
 11) izdalīt atsevišķi bilžu uploadošanas servisu, kas strādā gan profileēm, gan galerijām
