@@ -44,8 +44,11 @@ Route::post("/followers/{user}", "FollowerController@store")->name("follower.sto
 Route::delete("/followers/{user}", "FollowerController@unfollow")->name("follower.delete");
 
 //likes
-Route::post("/post/{post}/like", "LikeController@likePost")->name("like.create");
-Route::post("/gallery/{gallery}/like", "LikeController@likeGallery")->name("like.create");
+Route::post("/post/{post}/like", "LikeController@likePost")->name("like.post.create");
+Route::delete("/post/{post}/like", "LikeController@unLikePost")->name("like.gallery.delete");
+Route::post("/gallery/{gallery}/like", "LikeController@likeGallery")->name("like.gallery.create");
+Route::delete("/gallery/{gallery}/like", "LikeController@unLikeGallery")->name("like.gallery.delete");
+
 
 //messages
 Route::get("/messages", "MessageController@show")->name("message.show");

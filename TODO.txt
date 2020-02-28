@@ -1,7 +1,3 @@
-
-2) jāuztaisa unfriend / unfollow opcija
-3) jāuztaisa unlike opcija
-4) update profile un update postslapā jāuztaisa default values, kas ir o sākuma old(), sekundāri no datubāzes {{ old(..) ?? ... }}
 5) jāuztaisa eloquent relationship starp visiem modeļiem
 6) taimlainā nerāda savus postsus, to jāizlabo
 7) validācijas (request klases)

@@ -46,6 +46,11 @@
                 @csrf
                 <button type="submit" class="btn btn-primary">Like</button>
             </form>
+            <form action="/post/{{$post->id}}/like" method="POST">
+                @csrf
+                @method("delete")
+                <button type="submit" class="btn btn-primary">Unlike</button>
+            </form>
             @if($showEditPostButton)
                 <form action="/post/{{$post->id}}/edit" method="GET">
                     @csrf
@@ -56,6 +61,7 @@
                     @method("delete")
                     <button type="submit" class="btn btn-danger">Delete Post</button>
                 </form>
+
             @endif
         </div>
     </div>

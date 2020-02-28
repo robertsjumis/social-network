@@ -47,6 +47,11 @@
                 @csrf
                 <button type="submit" class="btn btn-primary">Like</button>
             </form>
+            <form action="/gallery/{{$gallery->id}}/like" method="POST">
+                @csrf
+                @method("delete")
+                <button type="submit" class="btn btn-primary">Unlike</button>
+            </form>
         </div>
     </div>
 @endsection

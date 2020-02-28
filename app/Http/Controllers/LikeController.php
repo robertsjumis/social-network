@@ -13,8 +13,6 @@ class LikeController extends Controller
     {
         $user = auth()->user();
 
-        var_dump($post);
-
         Like::create([
             "liked_by_id" => $user->id,
             "liked_content_id" => $post->id,
@@ -36,7 +34,32 @@ class LikeController extends Controller
         ]);
 
         return redirect(route("gallery.show", $gallery));
+    }
 
+    public function unLikePost(Post $post)
+    {
+        $user = auth()->user();
+
+        Like::where(
+            ["liked_by_id" => $user->id],
+            ["liked_content_id" => $post->id],
+            ["liked_content_type" => "post"]
+        )->delete();
+
+        return redirect(route("post.show", $post));
+    }
+
+    public function unLikeGallery(Gallery $gallery)
+    {
+        $user = auth()->user();
+
+        Like::where(
+            ["liked_by_id" => $user->id],
+            ["liked_content_id" => $gallery->id],
+            ["liked_content_type" => "gallery"]
+        )->delete();
+
+        return redirect(route("gallery.show", $gallery));
     }
 
 }
