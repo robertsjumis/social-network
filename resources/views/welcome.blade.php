@@ -16,7 +16,7 @@
                     <h2>Welcome</h2>
                 </div>
             </div>
-            <h3>Welcome to Pix-pies,</h3>
+            <h3>Welcome to Penguin-club,</h3>
             <h3>the future of the social networks</h3>
             <br>
             <h5>This was created as a final test for <a href="https://www.codelex.io">Codelex</a> coding school</h5>

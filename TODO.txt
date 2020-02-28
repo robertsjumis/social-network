@@ -1,0 +1,15 @@
+1) jāizlabo edit profile lapa ar visu tās kontrolieri
+2) jāuztaisa unfriend / unfollow opcija
+3) jāuztaisa unlike opcija
+4) update profile un update postslapā jāuztaisa default values, kas ir o sākuma old(), sekundāri no datubāzes {{ old(..) ?? ... }}
+5) jāuztaisa eloquent relationship starp visiem modeļiem
+6) taimlainā nerāda savus postsus, to jāizlabo
+7) validācijas (request klases)
+8) Policies.
+8.1. Useri nedrīkst varēt sekot paši sev. jāizmaina gan viewā, gan backendā
+8.2. Useri nedrīkst uzaicināt draudzēties paši sevi
+8.3. Profile viewā jāizlabo ifs uz @can
+9) jāuztaisa bilžu dzēšanu no galerijas. Kā arī normālu galerijas apskatīšanu
+10) jāuztaisa, lai posti, galerijas un draugi iterētos profila skatā
+11) izdalīt atsevišķi bilžu uploadošanas servisu, kas strādā gan profileēm, gan galerijām
+12) testi

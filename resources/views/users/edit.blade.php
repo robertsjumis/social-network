@@ -9,7 +9,7 @@
             <div id="menu">
                 <ul>
                     <li><a href="/" accesskey="1" title="">Main</a></li>
-                    <li><a accesskey="2" title="">New Pix-pie</a>
+                    <li><a accesskey="2" title="">New Pingy</a>
                         <ul class="dropdown">
                             <li><a href="{{route("gallery.create")}}">Gallery</a></li>
                             <li><a href="{{route("post.create")}}">Post</a></li>
