@@ -62,7 +62,6 @@ class FriendController extends Controller
         $user = auth()->user();
 
         // creates two new friend links
-
         FriendLink::create([
             "friend1_id" => $user->id,
             "friend2_id" => $sender->id
@@ -87,6 +86,26 @@ class FriendController extends Controller
         FriendInvitation::where(["invite_recipient_id" => $sender->id], ["invite_sender_id" => $user->id])->delete();
 
         return redirect(route("friends.index"));
+    }
+
+    public function unfriend(User $friend)
+    {
+        $user = auth()->user();
+
+        FriendLink::where([
+            "friend1_id" => $user->id],[
+            "friend2_id" => $friend->id
+        ])->delete();
+        FriendLink::where([
+            "friend1_id" => $friend->id],[
+            "friend2_id" => $user->id
+        ])->delete();
+
+        Follower::where(["follower_id" => $user->id],["follows_to_id" => $friend->id])->delete();
+        Follower::where(["follower_id" => $friend->id],["follows_to_id" => $user->id])->delete();
+
+        return redirect(route("user.profile", $friend->slug));
+
     }
 
 

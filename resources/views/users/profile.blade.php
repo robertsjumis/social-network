@@ -52,6 +52,11 @@
                         @csrf
                         <button type="submit" class="btn btn-light">Invite friend</button>
                     </form>
+                    <form action="/friends/{{$viewedUser->slug}}" method="POST">
+                        @csrf
+                        @method("delete")
+                        <button type="submit" class="btn btn-light">Unfriend</button>
+                    </form>
                     <form action="/followers/{{$viewedUser->slug}}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-dark">Follow</button>

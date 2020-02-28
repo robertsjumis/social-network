@@ -37,6 +37,7 @@ Route::put("/gallery/{gallery}, GalleryController@update")->name("gallery.update
 Route::get("/friends", "FriendController@index")->name("friends.index");
 Route::post("/friends/{inviteRecipient}", "FriendController@invite")->name("friends.invite");
 Route::put("/friends/{sender}", "FriendController@accept")->name("friends.accept");
+Route::delete("/friends/{friend}", "FriendController@unfriend")->name("friends.delete");
 
 //followers
 Route::post("/followers/{user}", "FollowerController@store")->name("follower.store");
