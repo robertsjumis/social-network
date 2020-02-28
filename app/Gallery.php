@@ -19,4 +19,9 @@ class Gallery extends Model
     {
         return $this->hasMany(Image::class);
     }
+
+//    public function likes()
+//    {
+//        return $this->morphMany(Like::class, "liked_content");
+//    }
 }

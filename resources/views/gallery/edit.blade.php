@@ -7,7 +7,6 @@
                 <h1><a href="/{{$user->slug}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
                 <span><a href="/{{$user->slug}}#posts">Posts</a> | <a
                         href="/{{$user->slug}}#galleries">Galleries</a></span>
-
             </div>
             <div id="menu">
                 <ul>

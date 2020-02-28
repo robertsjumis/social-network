@@ -38,7 +38,7 @@ class PostController extends Controller
 
         $likeCount = count(Like::where([
             "liked_content_id" => $post->id,
-            "liked_content_type" => "post"
+            "liked_content_type" => "Post"
         ])->get());
 
         return view("posts/show", [

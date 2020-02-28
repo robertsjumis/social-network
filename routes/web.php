@@ -1,11 +1,15 @@
 <?php
 
+//main page
 Route::middleware("auth")->get('/', 'HomeController@index');
 
+//auth / register / verify pages
 Auth::routes(["verify" => true]);
 
+// ?? page
 Route::get('/home', 'HomeController@index')->name('home')->middleware("profile.done");
 
+// welcome page for guests
 Route::get('/welcome', function () {
     return view('welcome');
 })->name("welcome");
@@ -47,10 +51,8 @@ Route::delete("/post/{post}/like", "LikeController@unLikePost")->name("like.gall
 Route::post("/gallery/{gallery}/like", "LikeController@likeGallery")->name("like.gallery.create");
 Route::delete("/gallery/{gallery}/like", "LikeController@unLikeGallery")->name("like.gallery.delete");
 
-
 //messages
 Route::get("/messages", "MessageController@show")->name("message.show");
-
 
 //user
 Route::get("/{viewedUser}", "UserController@show")->name("user.profile");
@@ -58,8 +60,3 @@ Route::put("/{user}", "UserController@updateImage")->name("updateImage.profile")
 Route::patch("/{user}", "UserController@update")->name("update.profile");
 Route::patch("/{user}/password", "UserController@updatePassword")->name("updatePassword.profile");
 Route::get("/{user}/edit", "UserController@edit")->name("edit.profile");
-
-
-
-
-//Route::resource("/{user}", "UserController");

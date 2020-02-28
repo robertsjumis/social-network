@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Follower;
 use App\FriendLink;
 use App\Gallery;
 use App\Http\Requests\UploadImage;
@@ -28,10 +29,10 @@ class UserController extends Controller
         $friends = $viewedUser->friendsTo()->get();
 
         //gathers galleries
-        $galleries = $viewedUser->galleries()->get();
+        $galleries = $viewedUser->galleries()->orderBy("created_at", "desc")->get();
 
         //gathers posts
-        $posts = Post::where("created_by", $viewedUser->id)->get();
+        $posts = Post::where("created_by", $viewedUser->id)->orderBy("created_at", "desc")->get();
 
         return view("/users/profile", [
             "user" => $user,
@@ -66,6 +67,11 @@ class UserController extends Controller
             "birthday" => request()->birthday,
             "slug" => request()->name . request()->last_name . "-" . $user->id,
             "updated_at" => NOW()
+        ]);
+
+        Follower::create([
+            "follower_id" => $user->id,
+            "follows_to_id" => $user->id
         ]);
 
         return redirect(route("edit.profile", ["user" => $user]));

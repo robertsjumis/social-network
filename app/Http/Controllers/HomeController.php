@@ -26,6 +26,7 @@ class HomeController extends Controller
             ->whereIn("created_by", $postAuthors
                 ->pluck("id")
                 ->toArray())
+            ->orderBy("created_at", "desc")
             ->get();
 
         return view("main", ["postAuthors" => $postAuthors, "user" => $user, "posts" => $posts]);

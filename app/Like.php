@@ -14,4 +14,21 @@ class Like extends Model
     {
         return $this->belongsTo(User::class, "liked_by_id");
     }
+
+    public function liked_content()
+    {
+        return $this->morphTo();
+    }
+
+//    relations
+//    public function posts()
+//    {
+//        return $this->morphedByMany("Post", "liked_content");
+//    }
+//
+//    public function galleries()
+//    {
+//        return $this->morphedByMany("Gallery", "liked_content");
+//    }
+
 }

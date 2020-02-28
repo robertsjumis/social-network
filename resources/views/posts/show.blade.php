@@ -35,8 +35,7 @@
             <div id="welcome">
                 <div class="title">
                     <h2>{{$post->title}}</h2>
-                    <span
-                        class="byline">He, who dont knows nothing, knows in fact everything</span>
+                    <h5>Posted: {{$post->created_at}}</h5>
                 </div>
 
                 <h4>{{$post->body}}</h4>

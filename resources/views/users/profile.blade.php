@@ -106,7 +106,7 @@
                     <h4 id="galleries">Galleries</h4>
                     @foreach($galleries as $gallery)
                         <div>
-                            <h5><a href="/gallery/{{$gallery->id}}">{{$gallery->title}}</a></h5>
+                            <h5><a href="/gallery/{{$gallery->id}}">{{$gallery->title}}</a> @ {{$gallery->created_at}}</h5>
                         </div>
                     @endforeach
                 </div>
@@ -116,7 +116,7 @@
                     <h4 id="posts">Posts</h4>
                     @foreach($posts as $post)
                         <div>
-                            <h5><a href="/post/{{$post->id}}">{{$post->title}}</a></h5>
+                            <h5><a href="/post/{{$post->id}}">{{$post->title}}</a> @ {{$post->created_at}}</h5>
                         </div>
                     @endforeach
                 </div>

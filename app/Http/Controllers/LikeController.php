@@ -16,7 +16,7 @@ class LikeController extends Controller
         Like::create([
             "liked_by_id" => $user->id,
             "liked_content_id" => $post->id,
-            "liked_content_type" => "post"
+            "liked_content_type" => "Post"
         ]);
 
         return redirect(route("post.show", $post));
@@ -30,7 +30,7 @@ class LikeController extends Controller
         Like::create([
             "liked_by_id" => $user->id,
             "liked_content_id" => $gallery->id,
-            "liked_content_type" => "gallery"
+            "liked_content_type" => "Gallery"
         ]);
 
         return redirect(route("gallery.show", $gallery));
@@ -43,7 +43,7 @@ class LikeController extends Controller
         Like::where(
             ["liked_by_id" => $user->id],
             ["liked_content_id" => $post->id],
-            ["liked_content_type" => "post"]
+            ["liked_content_type" => "Post"]
         )->delete();
 
         return redirect(route("post.show", $post));
@@ -56,7 +56,7 @@ class LikeController extends Controller
         Like::where(
             ["liked_by_id" => $user->id],
             ["liked_content_id" => $gallery->id],
-            ["liked_content_type" => "gallery"]
+            ["liked_content_type" => "Gallery"]
         )->delete();
 
         return redirect(route("gallery.show", $gallery));
