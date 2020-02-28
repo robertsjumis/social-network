@@ -1,4 +1,4 @@
-1) jāizlabo edit profile lapa ar visu tās kontrolieri
+
 2) jāuztaisa unfriend / unfollow opcija
 3) jāuztaisa unlike opcija
 4) update profile un update postslapā jāuztaisa default values, kas ir o sākuma old(), sekundāri no datubāzes {{ old(..) ?? ... }}

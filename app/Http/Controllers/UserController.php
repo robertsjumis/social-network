@@ -8,6 +8,7 @@ use App\Http\Requests\UploadImage;
 use App\Post;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -46,7 +47,7 @@ class UserController extends Controller
             "viewedUser" => $viewedUser,
             "showEditProfileButton" => $showEditProfileButton,
             "friends" => $friends
-            ]); //TODO: pārtaisīt uz slug. pamācība pieejama day22/app/user.php failā
+        ]); //TODO: pārtaisīt uz slug. pamācība pieejama day22/app/user.php failā
     }
 
     public function index() // show all
@@ -67,19 +68,30 @@ class UserController extends Controller
 
     public function update(User $user) //TODO: jāuztaisa Request klasi, kas validē inputus
     {
-        $userFillable = key(request()->only($user->getFillable()));
+        var_dump(request()->name . request()->last_name . "-" . $user->id);die;
 
-        $newValue = current(request()->only($user->getFillable()));
-
-        $user->$userFillable = $newValue;
-
-        $user->save();
-
-        $user->slug = $user->name . $user->last_name . "-" . $user->id;
-
-        $user->save();
+        $user->update([
+            "name" => request()->name,
+            "last_name" => request()->last_name,
+            "email" => request()->email,
+            "address" => request()->address,
+            "phone" => request()->phone,
+            "bio" => request()->bio,
+            "birthday" => request()->birthday,
+            "slug" => request()->name . request()->last_name . "-" . $user->id,
+            "updated_at" => NOW()
+        ]);
 
         return redirect(route("edit.profile", ["user" => $user]));
+    }
+
+    public function updatePassword(User $user)
+    {
+        $user->update([
+            'password' => Hash::make(request()->password),
+        ]);
+        return redirect(route("edit.profile", ["user" => $user]));
+
     }
 
     public function destroy() // deletes the user

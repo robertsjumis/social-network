@@ -5,8 +5,8 @@
             <div id="logo">
                 <img style="max-width:100px; max-height:100px" src="{{$user->image_location()}}" alt=""/>
                 <h1><a href="/{{$user->slug}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
-                <span><a href="/{{$user->slug}}#posts">Posts</a> | <a href="/{{$user->slug}}#galleries">Galleries</a></span>
-
+                <span><a href="/{{$user->slug}}#posts">Posts</a> | <a
+                        href="/{{$user->slug}}#galleries">Galleries</a></span>
             </div>
             <div id="menu">
                 <ul>
@@ -34,7 +34,7 @@
         </div>
         <div id="main">
 
-        @if ($errors->any())
+            @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
@@ -59,12 +59,12 @@
                         <label for="image"
                                class="col-md-4 col-form-label text-md-right">{{ __('Profile picture') }}</label>
                         <div class="col-md-6">
-                            <img style="max-width:100px; max-height:100px" src="{{ $user->image_location() }}"
+                            <img style="max-width:200px; max-height:200px" src="{{ $user->image_location() }}"
                                  alt="User profile image">
-                            Select image to upload:
+                            <p>Select image to upload:</p>
                             <input type="file" name="image" id="fileToUpload"
-                                   class="@error('image') is-invalid @enderror">
-                            <input type="submit" name="uploadImage" value="Upload Image">
+                                   class=" btn @error('image') is-invalid @enderror">
+                            <input type="submit" name="uploadImage" class="btn btn-primary" value="Upload Image">
                             @error('image')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('image') }}</strong>
@@ -73,14 +73,18 @@
                         </div>
                     </div>
                 </form>
-                @foreach($user->getFillable() as $userProperty)
-                    @if($userProperty == "password"|| $userProperty == "image_location")
-                        @continue
-                    @endif
-                    <form action="{{ route('update.profile', $user) }}" method="post"
-                          enctype="multipart/form-data">
-                        @csrf
-                        @method("patch")
+                <form action="{{ route('update.profile', $user) }}" method="post"
+                      enctype="multipart/form-data">
+                    @csrf
+                    @method("patch")
+
+                    @foreach($user->getFillable() as $userProperty)
+                        @if($userProperty == "password" ||
+                            $userProperty == "image_location" ||
+                            $userProperty == "slug")
+                            @continue
+                        @endif
+
                         <div class="form-group row">
                             <label for="name"
                                    class="col-md-4 col-form-label text-md-right">{{ __(str_replace("_", " ", ucfirst($userProperty))) }}</label>
@@ -104,17 +108,27 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
-                            <button type="submit" class="btn btn-primary">
-                                {{ __('Update') }}
-                            </button>
+
                         </div>
-                    </form>
-                @endforeach
+                    @endforeach
+                    <button type="submit" class="btn btn-primary ">
+                        {{ __('Update') }}
+                    </button>
+                </form>
             </div>
-            <form>
+            <div>
+                Wanna change your password?
+                Easy!
+            </div>
+            <form action="{{ route('updatePassword.profile', $user) }}" method="post"
+                  enctype="multipart/form-data">
+                @csrf
+                @method("patch")
+
+
                 <div class="form-group row">
                     <label for="password"
-                           class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                           class="col-md-4 col-form-label text-md-right">{{ __(' New Password') }}</label>
                     <div class="col-md-6">
                         <input id="password" type="password"
                                class="form-control @error('password') is-invalid @enderror"

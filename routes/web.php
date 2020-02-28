@@ -53,6 +53,7 @@ Route::get("/messages", "MessageController@show")->name("message.show");
 Route::get("/{viewedUser}", "UserController@show")->name("user.profile");
 Route::put("/{user}", "UserController@updateImage")->name("updateImage.profile");
 Route::patch("/{user}", "UserController@update")->name("update.profile");
+Route::patch("/{user}/password", "UserController@updatePassword")->name("updatePassword.profile");
 Route::get("/{user}/edit", "UserController@edit")->name("edit.profile");
 
 
