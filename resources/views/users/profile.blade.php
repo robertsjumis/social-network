@@ -6,7 +6,9 @@
             <div id="logo">
                 <img style="max-width:100px; max-height:100px" src="{{$user->image_location()}}" alt=""/>
                 <h1><a href="/{{$user->slug}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
-{{--                zemāko ifu jāaizvieto ar policy--}}
+                <span><a href="/{{$user->slug}}#posts">Posts</a> | <a href="/{{$user->slug}}#galleries">Galleries</a></span>
+
+                {{--                zemāko ifu jāaizvieto ar policy--}}
                 @if($showEditProfileButton)
                     <form action="{{$user->slug}}/edit" method="GET">
                         <button type="submit" class="btn btn-primary">
