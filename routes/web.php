@@ -25,12 +25,12 @@ Route::middleware("auth", "profile.done")->delete("/post/{post}", "PostControlle
 //galleries
 Route::middleware("auth", "profile.done")->get("/gallery/create", "GalleryController@create")->name("gallery.create");
 Route::middleware("auth", "profile.done")->post("/gallery", "GalleryController@store")->name("gallery.store");
-Route::middleware("auth", "profile.done")->put("/gallery/g/{gallery}, GalleryController@update")->name("gallery.update");
+Route::middleware("auth", "profile.done")->put("/duck/{gallery}, GalleryController@update")->name("gallery.update");
 Route::middleware("auth", "profile.done")->get("/gallery/{gallery}/edit", "GalleryController@edit")->name("gallery.edit");
 Route::middleware("auth", "profile.done")->post("/gallery/{gallery}/image", "ImageController@upload")->name("image.upload");
 Route::middleware("auth", "profile.done")->delete("/gallery/{gallery}/{image}", "ImageController@destroy")->name("image.delete");
 Route::middleware("auth", "profile.done")->get("/gallery/{gallery}", "GalleryController@show")->name("gallery.show");
-Route::middleware("auth", "profile.done")->delete("/gallery/g/{gallery}, GalleryController@destroy")->name("gallery.delete");
+Route::middleware("auth", "profile.done")->delete("/duck/{gallery}, GalleryController@destroy")->name("gallery.delete");
 
 //images
 Route::middleware("auth", "profile.done")->get("gallery/{gallery}/{image}", "ImageController@show")->name("image.show");
@@ -48,7 +48,7 @@ Route::middleware("auth", "profile.done")->delete("/followers/{user}", "Follower
 
 //likes
 Route::middleware("auth", "profile.done")->post("/post/{post}/like", "LikeController@likePost")->name("like.post.create");
-Route::middleware("auth", "profile.done")->delete("/post/{post}/like", "LikeController@unLikePost")->name("like.gallery.delete");
+Route::middleware("auth", "profile.done")->delete("/post/{post}/like", "LikeController@unLikePost")->name("like.post.delete");
 Route::middleware("auth", "profile.done")->post("/gallery/{gallery}/like", "LikeController@likeGallery")->name("like.gallery.create");
 Route::middleware("auth", "profile.done")->delete("/gallery/{gallery}/like", "LikeController@unLikeGallery")->name("like.gallery.delete");
 
@@ -57,7 +57,7 @@ Route::middleware("auth", "profile.done")->get("/messages", "MessageController@s
 
 //user
 Route::middleware("auth", "profile.done")->get("/{viewedUser}", "UserController@show")->name("user.profile");
-Route::middleware("auth", "profile.done")->put("/{user}", "UserController@updateImage")->name("updateImage.profile");
-Route::middleware("auth", "profile.done")->patch("/{user}", "UserController@update")->name("update.profile");
-Route::middleware("auth", "profile.done")->patch("/{user}/password", "UserController@updatePassword")->name("updatePassword.profile");
+Route::middleware("auth")->put("/{user}", "UserController@updateImage")->name("updateImage.profile");
+Route::middleware("auth")->patch("/{user}", "UserController@update")->name("update.profile");
+Route::middleware("auth")->patch("/{user}/password", "UserController@updatePassword")->name("updatePassword.profile");
 Route::middleware("auth")->get("/{user}/edit", "UserController@edit")->name("edit.profile");

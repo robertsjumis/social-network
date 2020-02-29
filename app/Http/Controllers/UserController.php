@@ -7,6 +7,7 @@ use App\Http\Requests\UploadImage;
 use App\Post;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -25,6 +26,33 @@ class UserController extends Controller
     {
         $user = auth()->user();
 
+        $followerIds = DB::table("followers")
+            ->select("follower_id")
+            ->where("follows_to_id", "=", $viewedUser->id)->get();
+
+        $showFollowButton = true;
+        if ($followerIds->contains('follower_id', $user->id)) {
+            $showFollowButton = false;
+        }
+
+        $friendsIds = DB::table("friend_links")
+            ->select("friend1_id")
+            ->where("friend2_id", "=", $viewedUser->id)->get();
+
+        $invitedFriends = DB::table("friend_invitations")
+            ->select("invite_recipient_id")
+            ->where("invite_sender_id", "=", $user->id)->get();
+
+        $showFriendInviteButton = true;
+        if ($friendsIds->contains('friend1_id', $user->id) || !$invitedFriends->contains("invite_recipient_id", $user->id)) {
+            $showFriendInviteButton = false;
+        }
+
+        $showUnfriendButton = false;
+        if ($friendsIds->contains('friend1_id', $user->id)) {
+            $showUnfriendButton = true;
+        }
+
         $showEditProfileButton = $user == $viewedUser ? true : false;
 
         //gathers friends
@@ -39,6 +67,9 @@ class UserController extends Controller
         return view("/users/profile", [
             "user" => $user,
             "viewedUser" => $viewedUser,
+            "showFollowButton" => $showFollowButton,
+            "showUnfriendButton" => $showUnfriendButton,
+            "showFriendInviteButton" => $showFriendInviteButton,
             "showEditProfileButton" => $showEditProfileButton,
             "friends" => $friends,
             "galleries" => $galleries,
@@ -61,7 +92,7 @@ class UserController extends Controller
         return redirect(route("edit.profile", ["user" => $user]));
     }
 
-    public function update(User $user) //TODO: jāuztaisa Request klasi, kas validē inputus
+    public function update(User $user)
     {
         $authUser = auth()->user();
 

@@ -35,29 +35,34 @@
             <div id="welcome">
                 <div class="title">
                     <h2>{{$gallery->title}}</h2>
-
-                    <form action="{{$gallery->id}}/edit" method="GET">
-                        <button type="submit" class="btn btn-light">
-                            Edit the gallery
-                        </button>
-                    </form>
+                    @if($showEditButton)
+                        <form action="{{$gallery->id}}/edit" method="GET">
+                            <button type="submit" class="btn btn-light">
+                                Edit the gallery
+                            </button>
+                        </form>
+                    @endif
                 </div>
                 @foreach($images as $image)
                     <a href="/gallery/{{$gallery->id}}/{{$image->id}}">
-                        <img style="margin: 30px; max-width:400px; max-height:400px" src="{{asset(Storage::url($image->image_location))}}" alt=""/>
+                        <img style="margin: 30px; max-width:400px; max-height:400px"
+                             src="{{asset(Storage::url($image->image_location))}}" alt=""/>
                     </a>
                 @endforeach
             </div>
             Liked: {{$likeCount}}
+            @if($showLikeButton)
             <form action="/gallery/{{$gallery->id}}/like" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-primary">Like</button>
             </form>
+            @else
             <form action="/gallery/{{$gallery->id}}/like" method="POST">
                 @csrf
                 @method("delete")
                 <button type="submit" class="btn btn-primary">Unlike</button>
             </form>
+            @endif
             <button class="btn btn-light" onclick="goBack()">Back</button>
         </div>
     </div>

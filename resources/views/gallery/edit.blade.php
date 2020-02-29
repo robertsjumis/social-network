@@ -35,7 +35,7 @@
             <div id="welcome">
                 <div class="title">
                     <h2>Modify your gallery</h2>
-                    <form method="POST" action="/gallery/g/{{$gallery->id}}">
+                    <form method="POST" action="/duck/{{$gallery->id}}">
                         @csrf
                         @method("delete")
                         <button type="submit" class="btn btn-danger">
@@ -44,7 +44,7 @@
                     </form>
                 </div>
 
-                <form action="/gallery/g/{{$gallery->id}}" method="POST">
+                <form action="/duck/{{$gallery->id}}" method="POST">
                     @csrf
                     @method("put")
                     Gallery name:

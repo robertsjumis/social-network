@@ -6,7 +6,8 @@
             <div id="logo">
                 <img style="max-width:100px; max-height:100px" src="{{$user->image_location()}}" alt=""/>
                 <h1><a href="/{{$user->slug}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
-                <span><a href="/{{$user->slug}}#posts">Posts</a> | <a href="/{{$user->slug}}#galleries">Galleries</a></span>
+                <span><a href="/{{$user->slug}}#posts">Posts</a> | <a
+                        href="/{{$user->slug}}#galleries">Galleries</a></span>
 
                 {{--                zemāko ifu jāaizvieto ar policy--}}
                 @if($showEditProfileButton)
@@ -48,24 +49,40 @@
                 <div class="title">
                     <h2>{{ $viewedUser->name }} {{$viewedUser->last_name}}</h2>
                     <h5>{{ $viewedUser->bio()}}</h5>
-                    <form action="/friends/{{$viewedUser->slug}}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-light">Invite friend</button>
-                    </form>
-                    <form action="/friends/{{$viewedUser->slug}}" method="POST">
-                        @csrf
-                        @method("delete")
-                        <button type="submit" class="btn btn-light">Unfriend</button>
-                    </form>
-                    <form action="/followers/{{$viewedUser->slug}}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-dark">Follow</button>
-                    </form>
-                    <form action="/followers/{{$viewedUser->slug}}" method="POST">
-                        @csrf
-                        @method("delete")
-                        <button type="submit" class="btn btn-dark">Unfollow</button>
-                    </form>
+                    @if(!$showEditProfileButton)
+                        @if($showFriendInviteButton)
+                            <form action="/friends/{{$viewedUser->slug}}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-light">Invite friend</button>
+                            </form>
+                        @endif
+                    @endif
+                    @if(!$showEditProfileButton)
+                        @if($showUnfriendButton)
+                            <form action="/friends/{{$viewedUser->slug}}" method="POST">
+                                @csrf
+                                @method("delete")
+                                <button type="submit" class="btn btn-light">Unfriend</button>
+                            </form>
+                        @endif
+                    @endif
+                    @if(!$showEditProfileButton )
+                        @if($showFollowButton)
+                            <form action="/followers/{{$viewedUser->slug}}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-dark">Follow</button>
+                            </form>
+                        @endif
+                    @endif
+                    @if(!$showEditProfileButton || !$showFollowButton)
+                        @if(!$showFollowButton)
+                            <form action="/followers/{{$viewedUser->slug}}" method="POST">
+                                @csrf
+                                @method("delete")
+                                <button type="submit" class="btn btn-dark">Unfollow</button>
+                            </form>
+                        @endif
+                    @endif
                 </div>
             </div>
             <div class="card-body">
@@ -106,7 +123,8 @@
                     <h4 id="galleries">Galleries</h4>
                     @foreach($galleries as $gallery)
                         <div>
-                            <h5><a href="/gallery/{{$gallery->id}}">{{$gallery->title}}</a> @ {{$gallery->created_at}}</h5>
+                            <h5><a href="/gallery/{{$gallery->id}}">{{$gallery->title}}</a> @ {{$gallery->created_at}}
+                            </h5>
                         </div>
                     @endforeach
                 </div>

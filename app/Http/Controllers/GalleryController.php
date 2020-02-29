@@ -8,6 +8,7 @@ use App\Image;
 use App\Like;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
@@ -74,14 +75,27 @@ class GalleryController extends Controller
 
         $images = $gallery->images()->get();
 
+        $showEditButton = auth()->user()->id == $gallery->created_by ? true : false;
+
         $likeCount = count(Like::where([
             "liked_content_id" => $gallery->id,
             "liked_content_type" => "Gallery"
         ])->get());
 
+        $hasLiked = DB::table("likes")
+            ->select("liked_by_id")
+            ->where(["liked_content_id" => $gallery->id], ["liked_content_type" => "Gallery"])->get();
+
+        $showLikeButton = true;
+        if ($hasLiked->contains('liked_by_id', $user->id)) {
+            $showLikeButton = false;
+        }
+
         return view("/gallery/show", [
             "user" => $user,
             "images" => $images,
+            "showEditButton" => $showEditButton,
+            "showLikeButton" => $showLikeButton,
             "gallery" => $gallery,
             "likeCount" => $likeCount
         ]);

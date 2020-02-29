@@ -41,15 +41,18 @@
                 <h4>{{$post->body}}</h4>
             </div>
             Liked: {{$likeCount}}
+            @if($showLikeButton)
             <form action="/post/{{$post->id}}/like" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-primary">Like</button>
             </form>
+            @else
             <form action="/post/{{$post->id}}/like" method="POST">
                 @csrf
                 @method("delete")
                 <button type="submit" class="btn btn-primary">Unlike</button>
             </form>
+            @endif
             @if($showEditPostButton)
                 <form action="/post/{{$post->id}}/edit" method="GET">
                     @csrf

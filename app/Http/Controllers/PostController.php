@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Like;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -41,10 +42,20 @@ class PostController extends Controller
             "liked_content_type" => "Post"
         ])->get());
 
+        $hasLiked = DB::table("likes")
+            ->select("liked_by_id")
+            ->where(["liked_content_id" => $post->id], ["liked_content_type" => "Post"])->get();
+
+        $showLikeButton = true;
+        if ($hasLiked->contains('liked_by_id', $user->id)) {
+            $showLikeButton = false;
+        }
+
         return view("posts/show", [
             "post" => $post,
             "likeCount" => $likeCount,
             "user" => $user,
+            "showLikeButton" => $showLikeButton,
             "showEditPostButton" => $showEditPostButton
         ]);
     }
