@@ -41,8 +41,9 @@
                 <form action="/post/{{$post->id}}" method="POST">
                     @csrf
                     @method("put")
-                    <input type="text" name="title" value="{{ $post->title }}" required/>
-                    <textarea name="body" required>{{ $post->body }}</textarea>
+                    <input class="row col-lg-12" type="text" name="title" placeholder="title goes here" required />
+
+                    <textarea class="row col-lg-12" name="body" placeholder="Write your stuff here" required></textarea>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
 

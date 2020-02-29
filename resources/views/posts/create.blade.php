@@ -35,14 +35,15 @@
             <div id="welcome">
                 <div class="title">
                     <h2>Create a new post</h2>
-                    <span
-                        class="byline">He, who dont knows nothing, knows in fact everything</span>
+
                 </div>
 
                 <form action="/post" method="POST">
                     @csrf
-                    <input type="text" name="title" placeholder="title goes here" required />
-                    <textarea name="body" placeholder="Write your stuff here" required></textarea>
+
+                    <input class="row col-lg-12" type="text" name="title" placeholder="title goes here" required />
+
+                    <textarea class="row col-lg-12" name="body" placeholder="Write your stuff here" required></textarea>
                     <button type="submit" class="btn btn-primary">Post</button>
                 </form>
             </div>
