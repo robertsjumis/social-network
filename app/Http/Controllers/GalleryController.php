@@ -36,26 +36,25 @@ class GalleryController extends Controller
     {
         $user = auth()->user();
 
-        $images = Image::where("gallery_id", $gallery->id)
-            ->pluck("image_location")
-            ->toArray();
+        $this->authorize("editGallery", [$gallery]);
 
-        $newImages = [];
+        $images = $gallery->images()->get();
 
-        foreach($images as $image)
-        {
-            $newImages[] = Storage::url($image);
-        }
-
-        return view('/gallery/edit', ["user" => $user, "images" => $newImages, "gallery" => $gallery]);
+        return view('/gallery/edit', ["user" => $user, "images" => $images, "gallery" => $gallery]);
     }
 
     public function update(Gallery $gallery)
     {
+        $this->authorize("editGallery", [$gallery]);
+
         $gallery->update([
             "title" => request()->title,
             "updated_at" => NOW()
         ]);
+
+        $gallery->save();
+
+        return redirect("edit.gallery", $gallery);
     }
 
     public function uploadImage(Gallery $gallery, UploadImage $request, User $user) //upload image
@@ -72,18 +71,6 @@ class GalleryController extends Controller
     public function show(Gallery $gallery)
     {
         $user = auth()->user();
-
-
-        $images = Image::where("gallery_id", $gallery->id)
-            ->pluck("image_location")
-            ->toArray();
-
-        $newImages = [];
-
-        foreach($images as $image)
-        {
-            $newImages[] = Storage::url($image);
-        }
 
         $images = $gallery->images()->get();
 
@@ -103,6 +90,8 @@ class GalleryController extends Controller
     public function destroy(Gallery $gallery)
     {
         $user = auth()->user();
+
+        $this->authorize("editGallery", [$gallery]);
 
         $gallery->delete();
 

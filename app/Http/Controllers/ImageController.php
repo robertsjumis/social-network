@@ -25,4 +25,11 @@ class ImageController extends Controller
 
         return view("gallery/images/show", ["user" => $user, "gallery" => $gallery, "image" => $image]);
     }
+
+    public function destroy(Gallery $gallery, Image $image)
+    {
+        $image->delete();
+
+        return redirect(route("gallery.edit", $gallery));
+    }
 }

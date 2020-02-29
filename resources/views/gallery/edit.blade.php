@@ -35,7 +35,7 @@
             <div id="welcome">
                 <div class="title">
                     <h2>Modify your gallery</h2>
-                    <form method="POST" action="/gallery/{{$gallery->id}}">
+                    <form method="POST" action="/gallery/g/{{$gallery->id}}">
                         @csrf
                         @method("delete")
                         <button type="submit" class="btn btn-danger">
@@ -44,18 +44,18 @@
                     </form>
                 </div>
 
-                <form action="/gallery" method="POST">
+                <form action="/gallery/g/{{$gallery->id}}" method="POST">
                     @csrf
                     @method("put")
                     Gallery name:
                     <input type="text" name="title" value="{{$gallery->title}}" required/>
-
-                    <button type="submit" class="btn btn-primary">Next</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </form>
                 @foreach($images as $image)
                     <br>
-                    <img style="max-width:200px; max-height:200px" src="{{asset($image)}}" alt=""/>
-                    <form method="POST" action="/">
+                    <img style="max-width:200px; max-height:200px" src="{{asset(Storage::url($image->image_location))}}"
+                         alt=""/>
+                    <form method="POST" action="/gallery/{{$gallery->id}}/{{$image->id}}">
                         @csrf
                         @method("delete")
                         <button type="submit" class="btn btn-danger">
@@ -63,7 +63,7 @@
                         </button>
                     </form>
                 @endforeach
-                <form action="/gallery/{{$gallery->id}}/image" method="post"
+                <form action="/gallery/{{$gallery->id}}/image" method="POST"
                       enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row">

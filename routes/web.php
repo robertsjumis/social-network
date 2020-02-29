@@ -25,11 +25,12 @@ Route::middleware("auth", "profile.done")->delete("/post/{post}", "PostControlle
 //galleries
 Route::middleware("auth", "profile.done")->get("/gallery/create", "GalleryController@create")->name("gallery.create");
 Route::middleware("auth", "profile.done")->post("/gallery", "GalleryController@store")->name("gallery.store");
+Route::middleware("auth", "profile.done")->put("/gallery/g/{gallery}, GalleryController@update")->name("gallery.update");
 Route::middleware("auth", "profile.done")->get("/gallery/{gallery}/edit", "GalleryController@edit")->name("gallery.edit");
 Route::middleware("auth", "profile.done")->post("/gallery/{gallery}/image", "ImageController@upload")->name("image.upload");
+Route::middleware("auth", "profile.done")->delete("/gallery/{gallery}/{image}", "ImageController@destroy")->name("image.delete");
 Route::middleware("auth", "profile.done")->get("/gallery/{gallery}", "GalleryController@show")->name("gallery.show");
-Route::middleware("auth", "profile.done")->put("/gallery/{gallery}, GalleryController@update")->name("gallery.update");
-Route::middleware("auth", "profile.done")->delete("/gallery/{gallery}, GalleryController@destroy")->name("gallery.delete");
+Route::middleware("auth", "profile.done")->delete("/gallery/g/{gallery}, GalleryController@destroy")->name("gallery.delete");
 
 //images
 Route::middleware("auth", "profile.done")->get("gallery/{gallery}/{image}", "ImageController@show")->name("image.show");

@@ -34,9 +34,8 @@
         <div id="main">
             <div id="welcome">
                 <div class="title">
-                    <h2>Create a new post</h2>
-                    <span
-                        class="byline">He, who dont knows nothing, knows in fact everything</span>
+                    <h2>Edit a new post</h2>
+
                 </div>
 
                 <form action="/post/{{$post->id}}" method="POST">

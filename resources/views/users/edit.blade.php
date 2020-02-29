@@ -3,10 +3,10 @@
     <div id="page" class="container">
         <div id="header">
             <div id="logo">
-                <img style="max-width:100px; max-height:100px" src="{{$user->image_location()}}" alt=""/>
-                <h1><a href="/{{$user->slug}}">{{ $user->name }} {{ $user->last_name }}</a></h1>
-                <span><a href="/{{$user->slug}}#posts">Posts</a> | <a
-                        href="/{{$user->slug}}#galleries">Galleries</a></span>
+                <img style="max-width:100px; max-height:100px" src="{{$authUser->image_location()}}" alt=""/>
+                <h1><a href="/{{$authUser->slug}}">{{ $authUser->name }} {{ $authUser->last_name }}</a></h1>
+                <span><a href="/{{$authUser->slug}}#posts">Posts</a> | <a
+                        href="/{{$authUser->slug}}#galleries">Galleries</a></span>
             </div>
             <div id="menu">
                 <ul>

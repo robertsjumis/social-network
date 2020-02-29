@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Follower;
-use App\FriendLink;
-use App\Gallery;
 use App\Http\Requests\UploadImage;
 use App\Post;
 use App\User;
@@ -16,7 +14,11 @@ class UserController extends Controller
 {
     public function edit(User $user) // shows edit page
     {
-        return view('/users/edit', ["user" => $user]);
+        $authUser = auth()->user();
+
+        $this->authorize('updateUser', [$user, $authUser]);
+
+        return view('/users/edit', ["user" => $user, "authUser" => $authUser]);
     }
 
     public function show(User $viewedUser) // shows user's profile page
@@ -46,6 +48,10 @@ class UserController extends Controller
 
     public function updateImage(UploadImage $request, User $user) // post request in edit page
     {
+        $authUser = auth()->user();
+
+        $this->authorize('updateUser', [$user, $authUser]);
+
         $user->update([
             "image_location" => request()->file("image")->store("profile_pictures", "public")
         ]);
@@ -57,6 +63,10 @@ class UserController extends Controller
 
     public function update(User $user) //TODO: jāuztaisa Request klasi, kas validē inputus
     {
+        $authUser = auth()->user();
+
+        $this->authorize('updateUser', [$user, $authUser]);
+
         $user->update([
             "name" => request()->name,
             "last_name" => request()->last_name,
@@ -79,6 +89,10 @@ class UserController extends Controller
 
     public function updatePassword(User $user)
     {
+        $authUser = auth()->user();
+
+        $this->authorize('updateUser', [$user, $authUser]);
+
         $user->update([
             'password' => Hash::make(request()->password),
         ]);

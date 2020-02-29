@@ -2,10 +2,23 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use App\Gallery;
+use App\Policies\GalleryPolicy;
+use App\Policies\PostPolicy;
+use App\Policies\UserPolicy;
+use App\Post;
+use App\User;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
+
+    protected $policies = [
+        User::class => UserPolicy::class,
+        Post::class => PostPolicy::class,
+        Gallery::class => GalleryPolicy::class
+    ];
 
     /**
      * Register any application services.
@@ -24,8 +37,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
-
-
+       $this->registerPolicies();
     }
 }

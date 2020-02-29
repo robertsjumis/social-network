@@ -53,12 +53,16 @@ class PostController extends Controller
     {
         $user = auth()->user();
 
+        $this->authorize("editPost", [$post]);
+
         return view('/posts/edit', ["post" => $post, "user" => $user]);
     }
 
     public function update(Post $post)
     {
         $user = auth()->user();
+
+        $this->authorize("editPost", [$post]);
 
         $post->update([
             "title" => request()->title,
@@ -71,6 +75,8 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        $this->authorize("editPost", [$post]);
+
         $post->delete();
 
         return redirect("/");
