@@ -1,4 +1,27 @@
-### Social network
+### To do
+
+Tests for implemented functionalities
+
+Code refactor:
+- Polymorphism implemented to likes & followers / friends
+- Navigation bar implemented as a layout in view files
+
+Validations (Request classes) for all user input forms
+
+Policies:
+- likes, unlikes, follows, friends, post updates, gallery updates, etc
+
+Plugin for text editing in posts/create & post/edit
+
+Services added:
+- upload image service
+- image thumbnail service
+
+
+
+
+
+# Social network
 
 Features list  
 - Registration
@@ -19,7 +42,7 @@ Registration should consist of following fields:
 - Email
 - Password
 
-Password must be confirmed with secondary field.
+Password must be confirmed with secondary fields
 
 ##### Login  
 
